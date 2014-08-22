@@ -11,17 +11,20 @@ function GameChart(id) {
  *@description the array of all stock codes
  *@const
  */
-GameChart.prototype.ALL_STOCK_CODES = ['600037'];
+GameChart.prototype.ALL_STOCK_CODES = ['11600666'];
 
-GameChart.prototype.ALL_STOCK_NAMES = []
+/**
+ *@description the array of all stock names
+ *@const
+ */
+GameChart.prototype.ALL_STOCK_NAMES = [''];
 
 /**
  *@description init the datas which use for game from network
  */
 GameChart.prototype.init = function () {
-	var index_stock = parseInt((Math.random() * this.ALL_STOCK_CODES.length).toFixed(0));
 	var gal = new GalHttpRequest('http://220.181.47.36/quote/kline/day/list?code={code}&xrdrtype={xrdrtype}&pageindex={pageindex}&pagesize={pagesize}', {
-		code: this.ALL_STOCK_CODES[index_stock],
+		code: '11600000',
 		xrdrtype: '0',
 		pageindex: '0',
 		pagesize: '120'
