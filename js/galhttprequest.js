@@ -437,15 +437,17 @@ Packet.prototype.getInt = function () {
 };
 
 Packet.prototype.getLong = function () {
-	var b0 = this.buff.shift();
-	var b1 = this.buff.shift();
-	var b2 = this.buff.shift();
-	var b3 = this.buff.shift();
-	var b4 = this.buff.shift();
-	var b5 = this.buff.shift();
-	var b6 = this.buff.shift();
-	var b7 = this.buff.shift();
-	return (((b0 & 0xff) << 56) | ((b1 & 0xff) << 48) | ((b2 & 0xff) << 40) | ((b3 & 0xff) << 32) | ((b4 & 0xff) << 24) | ((b5 & 0xff) << 16) | ((b6 & 0xff) << 8) | ((b7 & 0xff) << 0));
+	var b0 = ((this.buff.shift() & 0xff) << 56) >>> 0;
+	var b1 = ((this.buff.shift() & 0xff) << 48) >>> 0;
+	var b2 = ((this.buff.shift() & 0xff) << 40) >>> 0;
+	var b3 = ((this.buff.shift() & 0xff) << 32) >>> 0;
+	var b4 = ((this.buff.shift() & 0xff) << 24) >>> 0;
+	var b5 = ((this.buff.shift() & 0xff) << 16) >>> 0;
+	var b6 = ((this.buff.shift() & 0xff) << 8) >>> 0;
+	var b7 = (this.buff.shift() & 0xff) >>> 0;
+
+	var value = (b0 | b1 | b2 | b3 | b4 | b5 | b6 | b7) >>> 0;
+	return value;
 };
 
 Packet.prototype.getCompressDateTime = function () {
@@ -494,14 +496,14 @@ Packet.prototype.getFloat = function () {
 };
 
 Packet.prototype.getDouble = function () {
-	var b0 = this.buff.shift();
-	var b1 = this.buff.shift();
-	var b2 = this.buff.shift();
-	var b3 = this.buff.shift();
-	var b4 = this.buff.shift();
-	var b5 = this.buff.shift();
-	var b6 = this.buff.shift();
-	var b7 = this.buff.shift();
+	var b0 = this.buff.shift() & 0xff;
+	var b1 = this.buff.shift() & 0xff;
+	var b2 = this.buff.shift() & 0xff;
+	var b3 = this.buff.shift() & 0xff;
+	var b4 = this.buff.shift() & 0xff;
+	var b5 = this.buff.shift() & 0xff;
+	var b6 = this.buff.shift() & 0xff;
+	var b7 = this.buff.shift() & 0xff;
 
 	var signed = b0 & 0x80;
 	var e = (b1 & 0xF0) >> 4;
