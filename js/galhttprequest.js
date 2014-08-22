@@ -142,7 +142,7 @@ function createXMLHttpRequest(base_url, params) {
 
 	//添加请求头
 	if (xhr) {
-		xhr.setRequestHeader("ak", config_other.ak_new);
+		xhr.setRequestHeader("ak", '0');
 		xhr.setRequestHeader("userid", user_id);
 		xhr.setRequestHeader("sessionid", session_id);
 	}
