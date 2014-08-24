@@ -114,6 +114,8 @@ GameChart.prototype.load = function (data) {
 
 	this.high = high;
 	this.low = low;
+	this.temp_high = temp_high;
+	this.temp_low = temp_low;
 	this.klinedatas = klinedatas;
 	this.showchart();
 };
@@ -134,24 +136,9 @@ GameChart.prototype.showchart = function () {
 	this.height_per = this.height / (this.high - this.low);
 	this.group_kline = this.s.g();
 	for (var i = 0; i < this.MAX_COUNT; i++) {
-		var data = this.klinedatas[i];
-		var x = (3 * i + 1) this.width_per,
-			y_high = (this.high - data.high) * this.height_per,
-			y_low = (this.high - data.low) * this.height_per,
-			y_open = (this.high - data.open) * this.height_per,
-			y_close = (this.high - data.close) * this.height_per;
-		var line_hl = this.s.line(x, y_high, x, y_low).attr({
-			stroke: '#000',
-			strokeWidth: 2
-		});
-		var line_oc = this.s.line(x, y_open, x, y_close).attr({
-			stroke: '#000',
-			strokeWidth: 2 * this.width_per
-		});
-		this.group_kline.add(line_hl);
-		this.group_kline.add(line_oc);
+		this.add(i);
 	}
-	this.next();
+	//transform the matrix of scale and translate
 };
 
 /**
@@ -159,6 +146,28 @@ GameChart.prototype.showchart = function () {
  */
 GameChart.prototype.next = function () {
 	this.index_current++;
+	this.temp_high = Math.max(this.temp_high, data.high);
+	this.temp_low = Math.min(this.temp_low, data.low);
+	this.add(this.index_current);
+};
+
+GameChart.prototype.add = function (index) {
+	var data = this.klinedatas[index],
+		x = (3 * index + 1) this.width_per,
+		y_high = (this.high - data.high) * this.height_per,
+		y_low = (this.high - data.low) * this.height_per,
+		y_open = (this.high - data.open) * this.height_per,
+		y_close = (this.high - data.close) * this.height_per;
+	var line_hl = this.s.line(x, y_high, x, y_low).attr({
+		stroke: '#000',
+		strokeWidth: 2
+	});
+	var line_oc = this.s.line(x, y_open, x, y_close).attr({
+		stroke: '#000',
+		strokeWidth: 2 * this.width_per
+	});
+	this.group_kline.add(line_hl);
+	this.group_kline.add(line_oc);
 };
 
 /**
@@ -166,7 +175,8 @@ GameChart.prototype.next = function () {
  *use all money
  */
 GameChart.prototype.buy = function () {
-
+	var data = this.klinedatas[this.index_current];
+	var price = data.close;
 };
 
 /**
@@ -174,5 +184,6 @@ GameChart.prototype.buy = function () {
  *use all money
  */
 GameChart.prototype.sell = function () {
-
+	var data = this.klinedatas[this.index_current];
+	var price = data.close;
 };
