@@ -179,6 +179,11 @@ GameChart.prototype.showchart = function () {
 	this.height_per = this.height / (this.high - this.low);
 	this.height_per_assist = this.height_assist / this.high_assist;
 	this.group_scaleable = this.s.g();
+	this.group_other = this.s.g();
+
+	this.s.rect(0, this.height, this.width, this.height_assist).attr({
+		fill: '#F3C659'
+	});
 	this.group_assist = this.s.g();
 	this.group_unscaleable = [];
 	this.group_line_avg = [];
@@ -188,6 +193,7 @@ GameChart.prototype.showchart = function () {
 			stroke: colors[i],
 			fill: 'transparent'
 		});
+		this.group_other.add(polyline);
 		this.group_line_avg.push(polyline);
 	}
 	for (var i = 0; i < this.MAX_COUNT; i++) {
@@ -269,6 +275,7 @@ GameChart.prototype.add = function (index) {
 			stroke: color,
 			strokeWidth: 1
 		});
+		this.group_other.add(line_cross);
 		this.group_unscaleable.push({
 			shape: line_cross,
 			value: data.open
@@ -318,7 +325,7 @@ GameChart.prototype.transform = function () {
 	m_assist.scale(1, this.high_assist / this.temp_high_assist, 0, this.height + this.height_assist);
 	m_assist.translate(length_move, 0);
 	this.group_assist.transform(m_assist);
-}
+};
 
 /**
  *@description buy the stock in the current index point
@@ -353,11 +360,15 @@ GameChart.prototype.getPrice = function () {
 		data = this.klinedatas[this.klinedatas.length - 1];
 	}
 	return data.close;
-}
+};
 
+/**
+ *@description add a callback function while the game finish
+ *@param{Function} callback the callback while the game finish
+ */
 GameChart.prototype.finish = function (callback) {
 	this.finishcallback = callback;
-}
+};
 
 /**
  *@description add a buy or sell mark in the postion of a point at index
@@ -439,6 +450,7 @@ GameChart.prototype.addMark = function (tag) {
 		m_single = new Snap.Matrix();
 	m_single.translate(-Math.max(this.index_current - (this.MAX_COUNT - 1), 0) * this.width_per * 3, postion_y_new - postion_y_ori);
 	group_mark.transform(m_single);
+	this.group_other.add(group_mark);
 	this.group_unscaleable.push({
 		value: value,
 		shape: group_mark
