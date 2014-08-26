@@ -19,7 +19,7 @@ function GameChart(id) {
 		fill: 'transparent'
 	});
 	this.init();
-};
+}
 
 /**
  *@description the array of all stock codes
