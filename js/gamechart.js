@@ -6,11 +6,17 @@ function GameChart(id) {
 	var snap = new Snap('#' + id);
 	this.s = snap;
 	this.width = snap.attr('width');
-	this.height = snap.attr('height');
+	this.height = snap.attr('height') * 2 / 3;
+	this.height_assist = snap.attr('height') / 3;
 	this.s.rect().attr({
 		width: '100%',
 		height: '100%',
 		fill: '#F3C659'
+	});
+	this.s.line(0, this.height, this.width, this.height).attr({
+		stroke: '#000',
+		strokeWidth: 0.5,
+		fill: 'transparent'
 	});
 	this.init();
 };
@@ -100,7 +106,9 @@ GameChart.prototype.load = function (data) {
 	var temp_high = 0,
 		temp_low = 0,
 		high = 0,
-		low = 0;
+		low = 0,
+		temp_high_assist = 0,
+		high_assist = 0;
 
 	var temp_total = [0, 0, 0];
 	var avg_interval = [5, 10, 20];
@@ -128,25 +136,29 @@ GameChart.prototype.load = function (data) {
 		}
 
 		klinedatas.push(temp);
-
 		if (i == 0) {
 			high = temp.high;
 			low = temp.low;
+			high_assist = temp.amount;
 		} else {
 			high = Math.max(high, temp.high);
 			low = Math.min(low, temp.low);
+			high_assist = Math.max(high_assist, temp.amount);
 		}
 		//show 60 points while data init
 		if (i == index_init) {
 			temp_high = high;
 			temp_low = low;
+			temp_high_assist = high_assist;
 		}
 	}
 
 	this.high = high;
 	this.low = low;
+	this.high_assist = high_assist;
 	this.temp_high = temp_high;
 	this.temp_low = temp_low;
+	this.temp_high_assist = temp_high_assist;
 	this.klinedatas = klinedatas;
 	this.showchart();
 };
@@ -165,7 +177,9 @@ GameChart.prototype.throwerror = function (data) {
 GameChart.prototype.showchart = function () {
 	this.width_per = this.width / (this.MAX_COUNT * 3 - 1);
 	this.height_per = this.height / (this.high - this.low);
+	this.height_per_assist = this.height_assist / this.high_assist;
 	this.group_scaleable = this.s.g();
+	this.group_assist = this.s.g();
 	this.group_unscaleable = [];
 	this.group_line_avg = [];
 	var colors = ["#00ace5", "#cd8e06", "#c32ec3"];
@@ -198,10 +212,12 @@ GameChart.prototype.next = function () {
 	}
 	this.temp_high = data.high;
 	this.temp_low = data.low;
+	this.temp_high_assist = data.amount;
 	for (var i = this.index_current - 1; i > this.index_current - 60; i--) {
 		var temp_data = this.klinedatas[i];
 		this.temp_high = Math.max(this.temp_high, temp_data.high);
 		this.temp_low = Math.min(this.temp_low, temp_data.low);
+		this.temp_high_assist = Math.max(this.temp_high_assist, temp_data.amount);
 	}
 
 	this.add(this.index_current);
@@ -219,13 +235,14 @@ GameChart.prototype.add = function (index) {
 		y_high = (this.high - data.high) * this.height_per,
 		y_low = (this.high - data.low) * this.height_per,
 		y_open = (this.high - data.open) * this.height_per,
-		y_close = (this.high - data.close) * this.height_per;
-
-	var color = '#fff';
+		y_close = (this.high - data.close) * this.height_per,
+		y_assist = this.height + (this.high_assist - data.amount) * this.height_per_assist;
 	if (data.open > data.close) {
 		color = '#29922C';
 	} else if (data.open < data.close) {
 		color = '#FB1728';
+	} else {
+		color = '#ffffff';
 	}
 
 	//均线设置
@@ -263,18 +280,24 @@ GameChart.prototype.add = function (index) {
 		});
 		this.group_scaleable.add(line_oc);
 	}
+	var line_assist = this.s.line(x, y_assist, x, this.height + this.height_assist).attr({
+		stroke: color,
+		strokeWidth: 2 * this.width_per
+	});
+	this.group_assist.add(line_assist);
 };
 
 /**
  *@description do a transform after a new point add to the svg chart
  */
 GameChart.prototype.transform = function () {
+	var length_move = -Math.max(this.index_current - (this.MAX_COUNT - 1), 0) * this.width_per * 3;
 	//调整整体
 	var m = new Snap.Matrix();
 	var scale_y = (this.high - this.low) / (this.temp_high - this.temp_low);
 	var scale_point_y = (this.high - this.temp_high) * this.height / (this.high - this.low + this.temp_low - this.temp_high);
 	m.scale(1, scale_y, 0, scale_point_y);
-	m.translate(-Math.max(this.index_current - (this.MAX_COUNT - 1), 0) * this.width_per * 3, 0);
+	m.translate(length_move, 0);
 	this.group_scaleable.transform(m);
 	//调整特殊形状
 	for (var i = 0; i < this.group_unscaleable.length; i++) {
@@ -282,14 +305,19 @@ GameChart.prototype.transform = function () {
 		var postion_y_new = (this.temp_high - unscaleable.value) * this.height / (this.temp_high - this.temp_low),
 			postion_y_ori = (this.high - unscaleable.value) * this.height_per,
 			m_single = new Snap.Matrix();
-		m_single.translate(-Math.max(this.index_current - (this.MAX_COUNT - 1), 0) * this.width_per * 3, postion_y_new - postion_y_ori);
+		m_single.translate(length_move, postion_y_new - postion_y_ori);
 		unscaleable.shape.transform(m_single);
 	}
 	var m_line = new Snap.Matrix();
-	m_line.translate(-Math.max(this.index_current - (this.MAX_COUNT - 1), 0) * this.width_per * 3, 0);
+	m_line.translate(length_move, 0);
 	for (var i = 0; i < this.group_line_avg.length; i++) {
 		this.group_line_avg[i].transform(m_line);
 	}
+
+	var m_assist = new Snap.Matrix();
+	m_assist.scale(1, this.high_assist / this.temp_high_assist, 0, this.height + this.height_assist);
+	m_assist.translate(length_move, 0);
+	this.group_assist.transform(m_assist);
 }
 
 /**
