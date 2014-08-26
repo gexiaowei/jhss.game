@@ -336,6 +336,9 @@ GameChart.prototype.finish = function (callback) {
  *@param{string} tag buy or sell
  */
 GameChart.prototype.addMark = function (tag) {
+	if (!this.klinedatas[this.index_current]) {
+		return;
+	}
 	var a1 = 1.8,
 		a2 = 5 / 9,
 		a3 = 7 / 9,
