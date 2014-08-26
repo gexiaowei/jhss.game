@@ -4,19 +4,66 @@
 <head>
 	<meta charset="UTF-8">
 	<title>游戏主界面</title>
+	<link rel="stylesheet" type="text/css" href="../css/common.css">
 	<script src="../js/jquery-1.7.2.js"></script>
 	<script src="../js/snap.svg.js"></script>
 	<script src="../js/gamechart.js"></script>
 	<script src="../js/galhttprequest.js"></script>
 	<script>
 		$(document).ready(function () {
+			var status = 0,
+				totolmoney = 100000,
+				holdnum = 0;
 			var game = new GameChart('game');
+			game.finish(function (price) {
+				console.log('game finish');
+				alert("一共获利：" + (totolmoney + holdnum * price).toFixed(0) + "元");
+				status = 0;
+				totolmoney = 100000;
+				holdnum = 0;
+			});
+			$('#operate').click(function (e) {
+				console.log('当前status:' + status);
+				switch (status) {
+				case 0:
+					e.target.childNodes[0].nodeValue = '买';
+					game.next();
+					status = 1;
+					break;
+				case 1:
+					if (game.buy()) {
+						holdnum = totolmoney / game.getPrice();
+						totolmoney = 0;
+						status = 2;
+						e.target.childNodes[0].nodeValue = '卖';
+					}
+					break;
+				case 2:
+					if (game.sell()) {
+						totolmoney = holdnum * game.getPrice();
+						holdnum = 0;
+						status = 1;
+						e.target.childNodes[0].nodeValue = '买';
+					}
+					break;
+				case 3:
+					game.reset();
+					e.target.childNodes[0].nodeValue = '开始游戏';
+					status = 0;
+					break;
+				default:
+					break;
+				}
+			});
 		});
 	</script>
 </head>
 
 <body>
-	<svg id='game' width="1200" height="300"></svg>
+	<div>
+		<svg id='game' width="1200" height="300"></svg>
+	</div>
+	<button id="operate" class="operate">开始游戏</button>
 </body>
 
 </html>

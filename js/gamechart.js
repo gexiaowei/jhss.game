@@ -4,14 +4,14 @@
  */
 function GameChart(id) {
 	var snap = new Snap('#' + id);
-	snap.rect().attr({
+	this.s = snap;
+	this.width = snap.attr('width');
+	this.height = snap.attr('height');
+	this.s.rect().attr({
 		width: '100%',
 		height: '100%',
 		fill: '#F3C659'
 	});
-	this.s = snap;
-	this.width = snap.attr('width');
-	this.height = snap.attr('height');
 	this.init();
 };
 
@@ -32,6 +32,20 @@ GameChart.prototype.ALL_STOCK_NAMES = [''];
  *@const
  */
 GameChart.prototype.MAX_COUNT = 60;
+
+/**
+ *@description clear the svg and reinit all data
+ */
+GameChart.prototype.reset = function () {
+	this.group_scaleable.remove();
+	for (var i = 0; i < this.group_unscaleable.length; i++) {
+		this.group_unscaleable[i].shape.remove();
+	}
+	for (var i = 0; i < this.group_line_avg.length; i++) {
+		this.group_line_avg[i].remove();
+	}
+	this.init();
+};
 
 /**
  *@description init the datas which use for game from network
@@ -55,6 +69,7 @@ GameChart.prototype.init = function () {
 			self.throwerror(error);
 		}
 	});
+	this.index_mark = [];
 };
 
 /**
@@ -167,7 +182,6 @@ GameChart.prototype.showchart = function () {
 	}
 	//transform the matrix of scale and translate
 	this.transform();
-	this.next();
 };
 
 /**
@@ -177,6 +191,9 @@ GameChart.prototype.next = function () {
 	this.index_current++;
 	var data = this.klinedatas[this.index_current];
 	if (!data) {
+		if (this.finishcallback) {
+			this.finishcallback(this.klinedatas[this.klinedatas.length - 1].close);
+		}
 		return;
 	}
 	this.temp_high = data.high;
@@ -189,11 +206,6 @@ GameChart.prototype.next = function () {
 
 	this.add(this.index_current);
 	this.transform();
-
-	if (this.index_current == 70) {
-		this.sell();
-		return;
-	}
 
 	var self = this;
 	setTimeout(function () {
@@ -284,14 +296,24 @@ GameChart.prototype.transform = function () {
  *@description buy the stock in the current index point
  */
 GameChart.prototype.buy = function () {
-	this.addMark('buy');
+	if (this.index_mark.indexOf(this.index_current) == -1) {
+		this.addMark('buy');
+		this.index_mark.push(this.index_current);
+		return true;
+	}
+	return false;
 };
 
 /**
  *@description sell the stock in the current index point
  */
 GameChart.prototype.sell = function () {
-	this.addMark('sell')
+	if (this.index_mark.indexOf(this.index_current) == -1) {
+		this.addMark('sell')
+		this.index_mark.push(this.index_current);
+		return true;
+	}
+	return false;
 };
 
 /**
@@ -299,7 +321,14 @@ GameChart.prototype.sell = function () {
  */
 GameChart.prototype.getPrice = function () {
 	var data = this.klinedatas[this.index_current];
+	if (!data) {
+		data = this.klinedatas[this.klinedatas.length - 1];
+	}
 	return data.close;
+}
+
+GameChart.prototype.finish = function (callback) {
+	this.finishcallback = callback;
 }
 
 /**

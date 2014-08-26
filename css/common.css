@@ -1,0 +1,27 @@
+.operate {
+	border: 0px;
+	background: #f95258;
+	background: -webkit-gradient(linear, left top, left bottom, from(#f95258), to(#f95258));
+	background: -webkit-linear-gradient(top, #f95258, #f95258);
+	background: -moz-linear-gradient(top, #f95258, #f95258);
+	background: -ms-linear-gradient(top, #f95258, #f95258);
+	background: -o-linear-gradient(top, #f95258, #f95258);
+	width: 200px;
+	height: 70px;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
+	color: white;
+	font-size: 24px;
+	text-decoration: none;
+	vertical-align: middle;
+}
+.operate:hover {
+	border-top-color: #f95258;
+	background: #f95258;
+	color: #ccc;
+}
+.operate:active {
+	border-top-color: #f95258;
+	background: #f95258;
+}
