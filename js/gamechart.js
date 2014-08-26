@@ -40,7 +40,7 @@ GameChart.prototype.init = function () {
 	var index = parseInt((this.ALL_STOCK_CODES.length * Math.random()).toFixed(0));
 	var stockcode = this.ALL_STOCK_CODES[index];
 	var size = this.MAX_COUNT + 60;
-	var gal = new GalHttpRequest('http://220.181.47.36/quote/kline/day/list?code=11600666&xrdrtype=0&pageindex=1&pagesize=120', {
+	var gal = new GalHttpRequest('http://220.181.47.36/quote/kline/day/list?code=11600000&xrdrtype=0&pageindex=1&pagesize=120', {
 		code: stockcode,
 		xrdrtype: '0',
 		pageindex: '1',
@@ -52,7 +52,7 @@ GameChart.prototype.init = function () {
 			self.load(data);
 		},
 		error: function (error) {
-			this.throwerror(error);
+			self.throwerror(error);
 		}
 	});
 };
@@ -87,11 +87,14 @@ GameChart.prototype.load = function (data) {
 		high = 0,
 		low = 0;
 
+	var temp_total = [0, 0, 0];
+	var avg_interval = [5, 10, 20];
 	for (var i = 0; i < temp_datas.length; i++) {
 		var data = temp_datas[i];
 		for (var param in temp_data) {
 			temp_data[param] += data[param];
 		}
+
 		var temp = {
 			endDate: temp_data.endDate,
 			open: temp_data.open / 1000,
@@ -99,8 +102,15 @@ GameChart.prototype.load = function (data) {
 			low: temp_data.low / 1000,
 			close: temp_data.close / 1000,
 			amount: temp_data.amount,
-			money: temp_data.money / 1000
+			money: temp_data.money / 1000,
+			avg: []
 		};
+
+		for (var m = 0; m < temp_total.length; m++) {
+			temp_total[m] += temp.close;
+			temp_total[m] -= (klinedatas[i - avg_interval[m]] ? klinedatas[i - avg_interval[m]].close : 0);
+			temp.avg[m] = (i < (avg_interval[m] - 1) ? null : temp_total[m] / avg_interval[m]);
+		}
 
 		klinedatas.push(temp);
 
@@ -130,8 +140,8 @@ GameChart.prototype.load = function (data) {
  *@description do when an error throw in load datas from network
  *@param{Object} datas the error info
  */
-GameChart.prototype.throwerror = function (datas) {
-
+GameChart.prototype.throwerror = function (data) {
+	console.log(data);
 };
 
 /**
@@ -142,6 +152,15 @@ GameChart.prototype.showchart = function () {
 	this.height_per = this.height / (this.high - this.low);
 	this.group_scaleable = this.s.g();
 	this.group_unscaleable = [];
+	this.group_line_avg = [];
+	var colors = ["#00ace5", "#cd8e06", "#c32ec3"];
+	for (var i = 0; i < 3; i++) {
+		var polyline = this.s.polyline().attr({
+			stroke: colors[i],
+			fill: 'transparent'
+		});
+		this.group_line_avg.push(polyline);
+	}
 	for (var i = 0; i < this.MAX_COUNT; i++) {
 		this.index_current = i;
 		this.add(i);
@@ -170,10 +189,16 @@ GameChart.prototype.next = function () {
 
 	this.add(this.index_current);
 	this.transform();
+
+	if (this.index_current == 70) {
+		this.sell();
+		return;
+	}
+
 	var self = this;
 	setTimeout(function () {
 		self.next();
-	}, 300);
+	}, 1000);
 };
 
 GameChart.prototype.add = function (index) {
@@ -189,6 +214,20 @@ GameChart.prototype.add = function (index) {
 		color = '#29922C';
 	} else if (data.open < data.close) {
 		color = '#FB1728';
+	}
+
+	//均线设置
+	for (var m = 0; m < data.avg.length; m++) {
+		var points = [];
+		for (var n = 0; n <= index; n++) {
+			if (this.klinedatas[n].avg[m]) {
+				points.push((3 * n + 1) * this.width_per);
+				points.push((this.temp_high - this.klinedatas[n].avg[m]) * this.height / (this.temp_high - this.temp_low));
+			}
+		}
+		this.group_line_avg[m].attr({
+			points: points
+		});
 	}
 
 	var line_hl = this.s.line(x, y_high, x, y_low).attr({
@@ -211,10 +250,12 @@ GameChart.prototype.add = function (index) {
 			strokeWidth: 2 * this.width_per
 		});
 		this.group_scaleable.add(line_oc);
-
 	}
 };
 
+/**
+ *@description do a transform after a new point add to the svg chart
+ */
 GameChart.prototype.transform = function () {
 	//调整整体
 	var m = new Snap.Matrix();
@@ -232,22 +273,114 @@ GameChart.prototype.transform = function () {
 		m_single.translate(-Math.max(this.index_current - (this.MAX_COUNT - 1), 0) * this.width_per * 3, postion_y_new - postion_y_ori);
 		unscaleable.shape.transform(m_single);
 	}
+	var m_line = new Snap.Matrix();
+	m_line.translate(-Math.max(this.index_current - (this.MAX_COUNT - 1), 0) * this.width_per * 3, 0);
+	for (var i = 0; i < this.group_line_avg.length; i++) {
+		this.group_line_avg[i].transform(m_line);
+	}
 }
 
 /**
  *@description buy the stock in the current index point
- *use all money
  */
 GameChart.prototype.buy = function () {
-	var data = this.klinedatas[this.index_current];
-	var price = data.close;
+	this.addMark('buy');
 };
 
 /**
  *@description sell the stock in the current index point
- *use all money
  */
 GameChart.prototype.sell = function () {
+	this.addMark('sell')
+};
+
+/**
+ *@description return the close price at the current index
+ */
+GameChart.prototype.getPrice = function () {
 	var data = this.klinedatas[this.index_current];
-	var price = data.close;
+	return data.close;
+}
+
+/**
+ *@description add a buy or sell mark in the postion of a point at index
+ *@param{string} tag buy or sell
+ */
+GameChart.prototype.addMark = function (tag) {
+	var a1 = 1.8,
+		a2 = 5 / 9,
+		a3 = 7 / 9,
+		r = 15;
+	var value = null,
+		color = '',
+		flag = 1,
+		text_flag = '';
+	switch (tag) {
+	case 'buy':
+		value = this.klinedatas[this.index_current].high;
+		text_flag = '买';
+		color = '#FF333D';
+		break;
+	case 'sell':
+		value = this.klinedatas[this.index_current].low;
+		color = '#2CA332';
+		flag = -1;
+		text_flag = '卖';
+		break;
+	default:
+		break;
+	}
+	if (!value) {
+		return;
+	}
+
+	var point = {
+		x: (3 * this.index_current + 1) * this.width_per,
+		y: (this.high - value) * this.height_per
+	};
+
+	var d = Snap.format('M{x1},{y1}C{x1},{y1},{x2},{y2},{x3},{y3}C{x4},{y4},{x5},{y5},{x6},{y6}C{x7},{y7},{x8},{y8},{x9},{y9}C{x10},{y10},{x1},{y1},{x1},{y1}', {
+		x1: point.x,
+		y1: point.y,
+		x2: point.x + r,
+		y2: point.y + (-a1 * r + a3 * r) * flag,
+		x3: point.x + r,
+		y3: point.y - flag * a1 * r,
+		x4: point.x + r,
+		y4: point.y + (-a1 * r - a2 * r) * flag,
+		x5: point.x + a2 * r,
+		y5: point.y - flag * (1 + a1) * r,
+		x6: point.x,
+		y6: point.y - flag * (1 + a1) * r,
+		x7: point.x - a2 * r,
+		y7: point.y - flag * (1 + a1) * r,
+		x8: point.x - r,
+		y8: point.y - flag * (a1 + a2) * r,
+		x9: point.x - r,
+		y9: point.y - flag * a1 * r,
+		x10: point.x - r,
+		y10: point.y + (-a1 * r + a3 * r) * flag
+	});
+
+	var mark = this.s.path(d).attr({
+		fill: color,
+	});
+	var marktext = this.s.text(point.x, point.y - flag * a1 * r, text_flag).attr({
+		fill: '#fff',
+		'font-size': r,
+		'text-anchor': 'middle',
+		'dominant-baseline': 'middle'
+
+	});
+	var group_mark = this.s.g();
+	group_mark.add(mark, marktext);
+	var postion_y_new = (this.temp_high - value) * this.height / (this.temp_high - this.temp_low),
+		postion_y_ori = (this.high - value) * this.height_per,
+		m_single = new Snap.Matrix();
+	m_single.translate(-Math.max(this.index_current - (this.MAX_COUNT - 1), 0) * this.width_per * 3, postion_y_new - postion_y_ori);
+	group_mark.transform(m_single);
+	this.group_unscaleable.push({
+		value: value,
+		shape: group_mark
+	});
 };
