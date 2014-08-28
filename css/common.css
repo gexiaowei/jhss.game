@@ -10,6 +10,20 @@ body {
 	margin-left: 4%;
 	float: left;
 }
+.profit_des {
+	width: 100%;
+	padding-top: 20px;
+	padding-bottom: 10px;
+	text-align: center;
+	color: #A1833F;
+	font-size: 30pt;
+}
+.profit_money {
+	width: 100%;
+	text-align: center;
+	color: #745719;
+	font-size: 42pt;
+}
 .operate {
 	margin-top: 60px;
 	border: 0px;
@@ -54,11 +68,38 @@ body {
 	height: 135px;
 	position: absolute;
 	bottom: 0px;
+	display: table;
 }
-.free_download {
+.download div {
+	height: 100%;
+	vertical-align: middle;
+	display: table-cell;
+}
+.download .icon {
+	width: 99px;
+	padding: 17px;
+}
+.download .about {
+	text-align: left;
+}
+.softname {
+	margin: 5px;
+	font-size: 30pt;
+	color: #454545;
+}
+.des {
+	margin: 5px;
+	font-size: 20pt;
+	color: #7F7F7F;
+}
+.download .free_download {
 	background-color: #F3C659;
 	width: 135px;
 	height: 100%;
 	text-align: center;
-	float: right;
+}
+.dowloaddes {
+	color: white;
+	padding: 15px, 15px, 15px, 15px;
+	font-size: 30pt
 }

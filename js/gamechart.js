@@ -57,16 +57,16 @@ GameChart.prototype.reset = function () {
  *@description init the datas which use for game from network
  */
 GameChart.prototype.init = function () {
-	var index = parseInt((this.ALL_STOCK_CODES.length * Math.random()).toFixed(0));
-	var stockcode = this.ALL_STOCK_CODES[index];
-	var size = this.MAX_COUNT + 60;
-	var gal = new GalHttpRequest('http://220.181.47.36/quote/kline/day/list?code=11600000&xrdrtype=0&pageindex=1&pagesize=120', {
-		code: stockcode,
-		xrdrtype: '0',
-		pageindex: '1',
-		pagesize: size
-	});
-	var self = this;
+	var index = parseInt((this.ALL_STOCK_CODES.length * Math.random()).toFixed(0)),
+		stockcode = this.ALL_STOCK_CODES[index],
+		size = this.MAX_COUNT + 60,
+		gal = new GalHttpRequest('http://220.181.47.36/quote/kline/day/list?code={code}&xrdrtype={xrdrtype}&pageindex={pageindex}&pagesize={pagesize}', {
+			code: stockcode,
+			xrdrtype: '0',
+			pageindex: '1',
+			pagesize: size
+		}),
+		self = this;
 	gal.requestPacketFromNet({
 		success: function (data) {
 			self.load(data);
@@ -215,6 +215,9 @@ GameChart.prototype.next = function () {
 			this.finishcallback(this.klinedatas[this.klinedatas.length - 1].close);
 		}
 		return;
+	}
+	if (this.pricecallback) {
+		this.pricecallback(data.close);
 	}
 	this.temp_high = data.high;
 	this.temp_low = data.low;
@@ -368,6 +371,14 @@ GameChart.prototype.getPrice = function () {
  */
 GameChart.prototype.finish = function (callback) {
 	this.finishcallback = callback;
+};
+
+/**
+ *@description add a callback function while the price changed
+ *@param{Function} callback the callback while the price changed
+ */
+GameChart.prototype.pricechange = function (callback) {
+	this.pricecallback = callback;
 };
 
 /**
