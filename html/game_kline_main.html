@@ -13,7 +13,25 @@
 </head>
 
 <body>
-	<div>
+	<div id="gamend" class="gameend" style="display:none">
+		<div class="sharebar">
+			<div class="shareto">@优顾模拟炒股</div>
+			<div class="shareimage">
+				<img src="../images/arrow_share.png" alt="分享">
+			</div>
+		</div>
+		<div class="gamereslut">
+			<div><span id="date" class="normal">{date_start} 至 {date_end}</span>
+			</div>
+			<div><span class="normal">操作</span><span id="stockname">{stock_name}</span><span class="normal">获利： </span>
+			</div>
+			<div><span id="profittotal">{profit_total}</span><span id="profitunit">元</span>
+			</div>
+			<div><span id="appraisal" class="normal">{appraisal}</span>
+			</div>
+		</div>
+	</div>
+	<div id="gameprofit">
 		<div class="profit">
 			<div class="profit_des">总资产(￥)</div>
 			<div class="profit_money" id="total_profit">100000</div>
@@ -23,7 +41,7 @@
 			<div class="profit_money" id="current_profit">0</div>
 		</div>
 	</div>
-	<div class="gamecontainer">
+	<div id="gamecontainer" class="gamecontainer">
 		<svg id='game' width="100%" height="500"></svg>
 	</div>
 	<div class="operateare">
@@ -34,9 +52,10 @@
 		<div class="icon">
 			<img src="../images/icon.png" alt="优顾模拟炒股">
 		</div>
-		<div class="about"><span class="softname">优顾模拟炒股</span>
+		<div class="about">
+			<div class="softname">优顾模拟炒股</div>
 			<br />
-			<span class="des">用模拟的钱，炒真实的股</span>
+			<div class="des">用模拟的钱，炒真实的股</div>
 		</div>
 		<div class="free_download">
 			<span class="dowloaddes">免费<br />下载</span>

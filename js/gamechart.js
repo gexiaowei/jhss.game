@@ -31,7 +31,7 @@ GameChart.prototype.ALL_STOCK_CODES = ['11600037', '11600070', '11600104', '1160
  *@description the array of all stock names
  *@const
  */
-GameChart.prototype.ALL_STOCK_NAMES = [''];
+GameChart.prototype.ALL_STOCK_NAMES = ['歌华有线', '浙江富润', '上汽集团', '浪莎股份', '金宇集团', '西藏药业', '青海华鼎', 'ST景谷', '营口港', '航天动力', '亚宝药业', '三房巷', '博通股份', '中天科技', '贵航股份', '福耀玻璃', '新南洋', '川投能源', '万鸿集团', '大连热电', '上海新梅', '宁波富邦', '航天电子', '国投电力', '宝诚股份', '北方创业', '江南水务', '环旭电子', '皖新传媒', '方大集团', '中信海直', '小天鹅Ａ', '南京中北', '烯碳新材', '万泽股份', '江铃汽车', '渝三峡Ａ', '海南海药', '正虹科技', '北京旅游', '金宇车城', '中鼎股份', '法尔胜', '数源科技', '电广传媒', '南方汇通', '中国重汽', '达安基因', '瑞泰科技', '德棉股份', '新海宜', '沃华医药', '三维通信', '科陆电子', '天邦股份', '汉钟精机', '千足珍珠', '怡亚通', '新嘉联', '准油股份', '诺普信', '东华能源', '奥特迅', '合兴包装', '伊立浦', '太阳电缆', '中联电气', '潮宏基', '科冕木业', '伟星新材', '科远股份', '新亚制程', '中海科技', '康盛股份', '达实智能', '尤夫股份', '*ST天业', '二六三', '双环传动', '辉丰股份', '天汽模', '浙江众成', '通达动力', '中京电子', '豪迈科技', '哈尔斯', '道明光学', '加加食品', '鼎汉技术', '同花顺', '三川股份', '科新机电', '建新股份', '坚瑞消防', '神雾环保', '佐力药业', '高盟新材', '欣旺达', '金城医药', '雅本化学', '开能环保', '温州宏丰'];
 
 /**
  *@description the max point count of whole screen
@@ -59,6 +59,7 @@ GameChart.prototype.reset = function () {
 GameChart.prototype.init = function () {
 	var index = parseInt((this.ALL_STOCK_CODES.length * Math.random()).toFixed(0)),
 		stockcode = this.ALL_STOCK_CODES[index],
+		stockname = this.ALL_STOCK_NAMES[index],
 		size = this.MAX_COUNT + 60,
 		gal = new GalHttpRequest('http://220.181.47.36/quote/kline/day/list?code={code}&xrdrtype={xrdrtype}&pageindex={pageindex}&pagesize={pagesize}', {
 			code: stockcode,
@@ -75,6 +76,7 @@ GameChart.prototype.init = function () {
 			self.throwerror(error);
 		}
 	});
+	this.stockname = stockname;
 	this.index_mark = [];
 };
 
@@ -84,6 +86,7 @@ GameChart.prototype.init = function () {
  *klinedata contains endDate, open, high, low, close, amount, money
  */
 GameChart.prototype.load = function (data) {
+	console.log(data);
 	var index_init = this.MAX_COUNT - 1;
 	this.index_current = 0;
 	var temp_datas = data.kline;
@@ -94,7 +97,7 @@ GameChart.prototype.load = function (data) {
 	var klinedatas = [];
 
 	var temp_data = {
-		endDate: 0,
+		enddate: 0,
 		open: 0,
 		high: 0,
 		low: 0,
@@ -115,11 +118,17 @@ GameChart.prototype.load = function (data) {
 	for (var i = 0; i < temp_datas.length; i++) {
 		var data = temp_datas[i];
 		for (var param in temp_data) {
-			temp_data[param] += data[param];
+			if (param != 'enddate' && param != 'amount') {
+				temp_data[param] += data[param];
+			} else {
+				temp_data[param] = data[param];
+			}
 		}
 
+		console.log(temp);
+
 		var temp = {
-			endDate: temp_data.endDate,
+			endDate: temp_data.enddate,
 			open: temp_data.open / 1000,
 			high: temp_data.high / 1000,
 			low: temp_data.low / 1000,
@@ -151,6 +160,13 @@ GameChart.prototype.load = function (data) {
 			temp_low = low;
 			temp_high_assist = high_assist;
 		}
+
+		if (i == 0) {
+			this.startdate = temp.endDate;
+		} else if (i == temp_datas.length - 1) {
+			this.enddate = temp.endDate;
+		}
+
 	}
 
 	this.high = high;
@@ -212,7 +228,8 @@ GameChart.prototype.next = function () {
 	var data = this.klinedatas[this.index_current];
 	if (!data) {
 		if (this.finishcallback) {
-			this.finishcallback(this.klinedatas[this.klinedatas.length - 1].close);
+			var price = this.klinedatas[this.klinedatas.length - 1].close;
+			this.finishcallback(this.startdate, this.enddate, this.stockname, price);
 		}
 		return;
 	}
@@ -235,7 +252,7 @@ GameChart.prototype.next = function () {
 	var self = this;
 	setTimeout(function () {
 		self.next();
-	}, 1000);
+	}, 100);
 };
 
 GameChart.prototype.add = function (index) {

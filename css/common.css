@@ -40,15 +40,6 @@ body {
 	position: absolute;
 	left: 36%
 }
-.operate:hover {
-	border-top-color: #f95258;
-	background: #f95258;
-	color: #fff;
-}
-.operate:active {
-	border-top-color: #f95258;
-	background: #f95258;
-}
 .gamecontainer {
 	width: 100%;
 	background-color: #f3c659;
@@ -102,4 +93,56 @@ body {
 	color: white;
 	padding: 15px, 15px, 15px, 15px;
 	font-size: 30pt
+}
+.gameend {
+	background-color: #f3c659;
+	text-align: center;
+	height: 645px;
+	width: 100%;
+	padding-bottom: 50px;
+}
+.sharebar {
+	display: table;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+.sharebar div {
+	vertical-align: middle;
+	display: table-cell;
+}
+.shareto {
+	padding-left: 30px;
+	font-size: 27pt;
+	color: white;
+	text-align: left;
+}
+.shareimage {
+	width: 89px;
+	padding-right: 54px;
+}
+.gameresult {
+	text-align: center
+}
+span.normal {
+	color: #9F7C2C;
+	font-size: 25pt;
+}
+span#stockname {
+	color: #836726;
+	font-size: 28pt;
+}
+span#profittotal {
+	color: #FF2633;
+	font-size: 33pt;
+}
+span#profitunit {
+	color: #FF2633;
+	font-size: 25pt;
+}
+.gamereslut {
+	padding-top: 20px;
+}
+.gamereslut div {
+	padding-top: 15px;
+	padding-bottom: 15px;
 }

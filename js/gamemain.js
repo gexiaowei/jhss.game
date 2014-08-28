@@ -4,9 +4,11 @@ $(document).ready(function () {
 		buy = 0,
 		holdnum = 0;
 	var game = new GameChart('game');
-	game.finish(function (price) {
-		alert("一共获利：" + (totolmoney + holdnum * price).toFixed(0) + "元");
-		status = 0;
+	game.finish(function (startdate, enddate, stockname, price) {
+		var reslut = [startdate, enddate, stockname, (totolmoney + holdnum * price)];
+		setreslut(reslut);
+		$('#operate').text('再来一次');
+		status = 3;
 		totolmoney = 100000;
 		holdnum = 0;
 	});
@@ -47,8 +49,11 @@ $(document).ready(function () {
 			}
 			break;
 		case 3:
-			game.reset();
+			$('#gameprofit').removeAttr("style");
+			$('#gamecontainer').removeAttr("style");
+			$('#gamend').css('display', 'none');
 			$('#operate').text('开始游戏');
+			game.reset();
 			status = 0;
 			break;
 		default:
@@ -64,3 +69,26 @@ $(document).ready(function () {
 		location.href = 'http://www.baidu.com';
 	});
 });
+
+
+function setreslut(reslut) {
+	$('#gameprofit').css('display', 'none');
+	$('#gamecontainer').css('display', 'none');
+	$('#gamend').removeAttr("style");
+
+	$('#date').text(getdate(reslut[0]) + '至' + getdate(reslut[1]));
+	$('#stockname').text(reslut[2]);
+	var proift = reslut[3];
+	var color = '#FF2633';
+	if (proift < 100000) {
+		color = '#29922C';
+	}
+	$('#profitunit').css('color', color);
+	$('#profittotal').css('color', color);
+	$('#profittotal').text(proift.toFixed(2));
+};
+
+function getdate(dateint) {
+	var datestr = (dateint / 1000000).toFixed(0);
+	return datestr.substr(0, 4) + '-' + datestr.substr(4, 2) + '-' + datestr.substr(6, 2);
+}
