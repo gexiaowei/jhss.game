@@ -2,10 +2,14 @@ body {
 	background-color: #F3C04D;
 	margin: 0;
 }
-.image {
+.bodyimage {
+	width: 85%;
+}
+.footimage {
 	width: 100%;
 }
 div.body {
+	text-align: center;
 	width: 100%;
 	padding-top: 50px;
 }

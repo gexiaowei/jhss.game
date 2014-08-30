@@ -4,48 +4,51 @@ body {
 	margin: 0 0 0 0;
 }
 .profit {
-	width: 44%;
-	height: 145px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	width: 100%;
+	display: table;
+	background-color: #F3C659;
+}
+.profit_simple {
+	width: 40%;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	display: table-cell;
 	background-color: #F8DF9E;
-	margin-left: 4%;
-	float: left;
 }
 .profit_des {
-	width: 100%;
-	padding-top: 20px;
-	padding-bottom: 10px;
 	text-align: center;
 	color: #A1833F;
-	font-size: 30pt;
+	font-size: 2.3em;
 }
 .profit_money {
-	width: 100%;
 	text-align: center;
 	color: #745719;
-	font-size: 42pt;
+	font-size: 3.7em;
 }
 .operate {
 	margin-top: 60px;
 	border: 0px;
 	background: #f95258;
-	width: 28%;
-	height: 70px;
+	width: 40%;
+	height: 88px;
 	-webkit-border-radius: 0px;
 	-moz-border-radius: 0px;
 	text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
 	color: white;
-	font-size: 24px;
+	font-size: 3em;
 	text-decoration: none;
 	vertical-align: middle;
 	position: absolute;
-	left: 36%
+	left: 30%;
 }
 .gamecontainer {
 	width: 100%;
 	background-color: #f3c659;
 	padding-bottom: 50px;
 }
-.operateare:before {
+.gameoperate:before {
 	display: block;
 	content: "";
 	height: 25px;
@@ -97,7 +100,7 @@ body {
 .gameend {
 	background-color: #f3c659;
 	text-align: center;
-	height: 645px;
+	height: 700px;
 	width: 100%;
 	padding-bottom: 50px;
 }

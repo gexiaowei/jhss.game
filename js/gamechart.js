@@ -125,8 +125,6 @@ GameChart.prototype.load = function (data) {
 			}
 		}
 
-		console.log(temp);
-
 		var temp = {
 			endDate: temp_data.enddate,
 			open: temp_data.open / 1000,
