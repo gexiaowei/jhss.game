@@ -1,10 +1,10 @@
 var dataForWeixin = {
 	appId: "",
-	MsgImg: "http://s8.sinaimg.cn/bmiddle/4ff92d3706fe636d8a4c7",
-	TLImg: "http://s8.sinaimg.cn/bmiddle/4ff92d3706fe636d8a4c7",
-	url: "http://faxinxi.la/vote/1",
-	title: "input title here",
-	desc: "input description here",
+	MsgImg: "http://www.xixistar.com/mobile/images/icon.png",
+	TLImg: "http://www.xixistar.com/mobile/images/icon.png",
+	url: "http://www.xixistar.com/mobile/html/game_kline_index.html",
+	title: "骨头硬不硬",
+	desc: "小伙伴们，赶紧来参加比赛吧，我在这里等着你们哦",
 	fakeid: "",
 	callback: function () {}
 };
