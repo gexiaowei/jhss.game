@@ -234,7 +234,7 @@ GameChart.prototype.next = function () {
 	var self = this;
 	setTimeout(function () {
 		self.next();
-	}, 1000);
+	}, 500);
 };
 
 GameChart.prototype.add = function (index) {

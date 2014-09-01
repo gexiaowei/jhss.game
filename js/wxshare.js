@@ -3,8 +3,8 @@ var dataForWeixin = {
 	MsgImg: "http://www.xixistar.com/mobile/images/icon.png",
 	TLImg: "http://www.xixistar.com/mobile/images/icon.png",
 	url: "http://www.xixistar.com/mobile/html/game_kline_index.html",
-	title: "骨头硬不硬",
-	desc: "小伙伴们，赶紧来参加比赛吧，我在这里等着你们哦",
+	title: "遨游股海，搜寻财富",
+	desc: "快点来试试吧，在60天的时间里赚更多的MONEY",
 	fakeid: "",
 	callback: function () {}
 };
