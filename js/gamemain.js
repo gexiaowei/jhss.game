@@ -5,7 +5,7 @@ $(document).ready(function () {
 		holdnum = 0;
 	var game = new GameChart('game');
 	game.finish(function (startdate, enddate, stockname, price) {
-		var reslut = [startdate, enddate, stockname, (totolmoney + holdnum * price)];
+		var reslut = [startdate, enddate, stockname, (totolmoney + holdnum * price) - 100000];
 		setreslut(reslut);
 		$('#operate').text('再来一次');
 		status = 3;
@@ -80,18 +80,50 @@ function setreslut(reslut) {
 	$('#stockname').text(reslut[2]);
 	var proift = reslut[3];
 	var color = '#FF2633';
-	if (proift < 100000) {
+	if (proift < 0) {
 		color = '#29922C';
 	}
 	$('#profitunit').css('color', color);
 	$('#profittotal').css('color', color);
 	$('#profittotal').text(proift.toFixed(2));
 
-	dataForWeixin.desc = 'zheshiyigeceshi';
+	var appraisal = getAppraisal(proift);
+	$('#appraisal').text(appraisal);
+
+	dataForWeixin.desc = appraisal;
 	setShareInfo();
 };
 
 function getdate(dateint) {
 	var datestr = (dateint / 1000000).toFixed(0);
 	return datestr.substr(0, 4) + '-' + datestr.substr(4, 2) + '-' + datestr.substr(6, 2);
+}
+
+function getAppraisal(profit) {
+	var profitpercent = profit / 1000;
+	var appraisal;
+	if (0 <= profitpercent && profitpercent < 5) {
+		appraisal = '哎呀， 赚的的这么少不如去优顾理财找个高收益理财';
+	} else if (5 <= profitpercent && profitpercent < 15) {
+		appraisal = '看大门的老孙都比你牛，╮(╯▽╰)╭';
+	} else if (15 <= profitpercent && profitpercent < 35) {
+		appraisal = '细水长流， 也不错啦';
+	} else if (35 <= profitpercent && profitpercent < 50) {
+		appraisal = '收益不错， 去换辆跑车吧！';
+	} else if (50 <= profitpercent && profitpercent < 80) {
+		appraisal = '英雄！ 小伙伴儿们都惊呆了！';
+	} else if (80 <= profitpercent) {
+		appraisal = '传说中的股神！ 去优顾模拟炒股里拯救世界吧！';
+	} else if (-5 <= profitpercent && profitpercent < 0) {
+		appraisal = '留的青山在， 不怕没柴烧， 再战！';
+	} else if (-15 <= profitpercent && profitpercent < -5) {
+		appraisal = '麻麻， 股市好可怕';
+	} else if (-35 <= profitpercent && profitpercent < -15) {
+		appraisal = '惨”， 求小伙伴们请吃饭';
+	} else if (-50 <= profitpercent && profitpercent < -35) {
+		appraisal = '谁借我一件衣服， 我觉得好冷啊';
+	} else {
+		appraisal = '也是传奇！ 精确反向指标！';
+	}
+	return appraisal;
 }
