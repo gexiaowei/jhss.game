@@ -65,8 +65,7 @@ $(document).ready(function () {
 	});
 
 	$('#download').click(function () {
-		//TODO 修改下载地址
-		location.href = 'http://www.baidu.com';
+		location.href = 'http://www.youguu.com/download/mncg_code.html';
 	});
 });
 
