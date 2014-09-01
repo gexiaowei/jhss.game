@@ -86,6 +86,9 @@ function setreslut(reslut) {
 	$('#profitunit').css('color', color);
 	$('#profittotal').css('color', color);
 	$('#profittotal').text(proift.toFixed(2));
+
+	dataForWeixin.desc = 'zheshiyigeceshi';
+	setShareInfo();
 };
 
 function getdate(dateint) {
