@@ -88,7 +88,13 @@ function setreslut(reslut) {
 
 	var appraisal = getAppraisal(proift);
 	$('#appraisal').text(appraisal);
-	dataForWeixin.desc = '我在60天内操作'+reslut[2]+(proift>=0?'盈利':'亏损'）+Math.abs(proift).toFixed(2)+'元！'+appraisal;
+	var desc = '我在60天内操作';
+	desc += reslut[2];
+	desc += (proift >= 0 ? '盈利' : '亏损');
+	desc += Math.abs(proift).toFixed(2);
+	desc += '元！';
+	desc += appraisal;
+	dataForWeixin.desc = desc;
 	setShareInfo();
 };
 
