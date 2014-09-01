@@ -437,16 +437,16 @@ Packet.prototype.getInt = function () {
 };
 
 Packet.prototype.getLong = function () {
-	var b0 = ((this.buff.shift() & 0xff) << 56) >>> 0;
-	var b1 = ((this.buff.shift() & 0xff) << 48) >>> 0;
-	var b2 = ((this.buff.shift() & 0xff) << 40) >>> 0;
-	var b3 = ((this.buff.shift() & 0xff) << 32) >>> 0;
-	var b4 = ((this.buff.shift() & 0xff) << 24) >>> 0;
-	var b5 = ((this.buff.shift() & 0xff) << 16) >>> 0;
-	var b6 = ((this.buff.shift() & 0xff) << 8) >>> 0;
-	var b7 = (this.buff.shift() & 0xff) >>> 0;
-
-	var value = (b0 | b1 | b2 | b3 | b4 | b5 | b6 | b7) >>> 0;
+	var valstr = '0x';
+	for (var i = 7; i >= 0; i--) {
+		var byte = this.buff.shift();
+		var str = (byte & 0xff).toString(16);
+		if (str.length == 1) {
+			valstr += '0';
+		}
+		valstr += str;
+	}
+	var value = eval(valstr);
 	return value;
 };
 
