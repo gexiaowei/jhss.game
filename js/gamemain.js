@@ -62,8 +62,11 @@ $(document).ready(function () {
 		}
 	});
 
-	$('#download').click(function () {
+	$('#download_mncg').click(function () {
 		location.href = 'http://www.youguu.com/download/mncg_code.html';
+	});
+	$('#download_yglc').click(function () {
+		location.href = 'http://www.youguu.com/download/yglc_code.html';
 	});
 });
 
