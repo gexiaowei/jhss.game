@@ -14,9 +14,11 @@ div.body {
 	padding-top: 50px;
 }
 div.container {
+	z-index: 99;
 	padding-top: 20px;
 	text-align: center;
-	width: 100%
+	width: 100%;
+	position: relative;
 }
 div.foot {
 	width: 100%;
@@ -32,6 +34,7 @@ div#about {
 	color: #F0888D;
 }
 a.startgame {
+	z-index: 99;
 	width: auto;
 	display: block;
 	padding-top: 20px;
