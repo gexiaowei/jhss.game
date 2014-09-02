@@ -64,7 +64,7 @@ GameChart.prototype.init = function () {
 		size = this.MAX_COUNT + 60,
 		gal = new GalHttpRequest('http://220.181.47.36/quote/kline/day/list?code={code}&xrdrtype={xrdrtype}&pageindex={pageindex}&pagesize={pagesize}', {
 			code: stockcode,
-			xrdrtype: '0',
+			xrdrtype: '1',
 			pageindex: '1',
 			pagesize: size
 		}),
