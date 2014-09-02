@@ -7,7 +7,7 @@ function GameChart(id) {
 	this.context = canvas.getContext('2d');
 	this.width = canvas.offsetWidth;
 	canvas.width = this.width;
-	canvas.height = 500;
+	canvas.height = canvas.offsetHeight;
 	this.height = canvas.offsetHeight * 2 / 3;
 	this.height_assist = canvas.offsetHeight / 3;
 	this.reset();

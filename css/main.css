@@ -10,25 +10,40 @@ body {
 	display: table;
 	background-color: #F3C659;
 }
-.profit_simple {
+.profit .profit_simple {
 	width: 40%;
 	padding-top: 20px;
 	padding-bottom: 20px;
 	display: table-cell;
 	background-color: #F8DF9E;
 }
-.profit_des {
+.profit .profit_simple .profit_des {
 	text-align: center;
 	color: #A1833F;
 	font-size: 2.3em;
 }
-.profit_money {
+.profit .profit_simple .profit_money {
 	text-align: center;
 	color: #745719;
 	font-size: 3.7em;
 }
+.gameare {
+	position: absolute;
+	top: 0;
+	bottom: 40%;
+	width: 100%;
+	background-color: #f3c659;
+}
+div.gamecontainer {
+	margin-top: 10%;
+	width: 100%;
+	height: 60%;
+}
+canvas#game {
+	width: 100%;
+	height: 100%;
+}
 .operate {
-	margin-top: 60px;
 	border: 0px;
 	background: #f95258;
 	width: 40%;
@@ -41,12 +56,9 @@ body {
 	text-decoration: none;
 	vertical-align: middle;
 	position: absolute;
+	top: 50%;
+	margin-top: -44px;
 	left: 30%;
-}
-.gamecontainer {
-	width: 100%;
-	background-color: #f3c659;
-	padding-bottom: 50px;
 }
 .gameoperate:before {
 	display: block;
@@ -55,6 +67,12 @@ body {
 	background-color: #f3c659;
 	background-size: 50px 25px;
 	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAyCAMAAACd646MAAAASFBMVEUAAAD////////////////////////////////////////////////////////////////////////////////////////////neHiwAAAAF3RSTlMAPtOQ3MVySumtnWwqWPbuvqeGMSENBSpN188AAAEoSURBVFjDtdVZjsMwDANQWd4TN1vb8P43HSBfRZNpNvNdgDBoSXJUicFm71IHdMn5bEMsUpNpG8UGbVojNcxx8vjBT3GWe0oYsGsIRa4z1uEQZ83ViKbHYX1zJeZpE05J9innvIPiNA1vOcGMuGQ0cliruEhbOeZlcYN9yQEm45ZsZFf0uMlH2fFQ3KaPnQyHCtxjL4OdEhWV6L+9GI9qvJFNr4yK8va8WFRlZUOLylpZMYrKdFXLe0R14/fmDyAIX3dQQaDP7Z9F/GEmgSJ9dt+ApPl4SA+S3hAbWbdSHGhcoc3IelbmAUTDvIREUMUlZALVtIR4UPllSEBmlmNF1nJWynq1KMhUpICuSARdlAC6IBZ0VjLosnjQeXGgc5JAl6QDXScA3x/ltV38LviHrgAAAABJRU5ErkJggg==);
+}
+.gameoperate {
+	position: absolute;
+	bottom: 135px;
+	width: 100%;
+	top: 60%;
 }
 .download {
 	background-color: #D9D9D9;
@@ -100,9 +118,8 @@ body {
 .gameend {
 	background-color: #f3c659;
 	text-align: center;
-	height: 700px;
+	height: 100%;
 	width: 100%;
-	padding-bottom: 50px;
 }
 .sharebar {
 	display: table;
@@ -115,7 +132,7 @@ body {
 }
 .shareto {
 	padding-left: 30px;
-	font-size: 27pt;
+	font-size: 2em;
 	color: white;
 	text-align: left;
 }
@@ -128,19 +145,19 @@ body {
 }
 span.normal {
 	color: #9F7C2C;
-	font-size: 25pt;
+	font-size: 3em;
 }
 span#stockname {
 	color: #836726;
-	font-size: 28pt;
+	font-size: 3.5em;
 }
 span#profittotal {
 	color: #FF2633;
-	font-size: 33pt;
+	font-size: 3.7em;
 }
 span#profitunit {
 	color: #FF2633;
-	font-size: 25pt;
+	font-size: 3pt;
 }
 .gamereslut {
 	padding-top: 20px;
