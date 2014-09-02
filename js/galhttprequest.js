@@ -483,7 +483,7 @@ Packet.prototype.getCompressLong = function () {
 	do {
 		b = this.buff.shift();
 		if (ind == 0 && (b & 0x40) != 0) {
-			val = 0xffffffffffffffff;
+			val = -1;
 		}
 		ind++;
 		val = (val << 7) | (b & 0x7f);
