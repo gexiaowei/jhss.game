@@ -114,7 +114,7 @@ GameChart.prototype.load = function (data) {
 	for (var i = 0; i < temp_datas.length; i++) {
 		var data = temp_datas[i];
 		for (var param in temp_data) {
-			if (param != 'enddate' && param != 'amount') {
+			if (param != 'enddate') {
 				temp_data[param] += data[param];
 			} else {
 				temp_data[param] = data[param];
