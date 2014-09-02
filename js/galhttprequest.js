@@ -58,6 +58,7 @@ GalHttpRequest.prototype.requestPacketFromNet = function (callback) {
 
 	var xhr = createXMLHttpRequest(this.base_url, this.params);
 	if (!xhr) {
+		console.error('请求发生错误');
 		callback.error({
 			status: "-0001",
 			message: "浏览器不支持跨域请求"
@@ -68,38 +69,65 @@ GalHttpRequest.prototype.requestPacketFromNet = function (callback) {
 	//保证返回流不被修改
 	xhr.overrideMimeType("text/plain; charset=x-user-defined");
 
-	xhr.onloadend = function () {
-		var data = xhr.response;
-		var buff = [];
-		for (var i = 0, j = data.length; i < j; i++) {
-			buff.push(data[i].charCodeAt(0));
-		};
-		var len = readInt(buff);
-		var seq = readInt(buff);
-		var operatecode = readInt(buff);
-		var packet = new Packet(operatecode, seq);
-		packet.input(buff);
-		try {
-			packet.decode();
-		} catch (error) {
+	xhr.onerror = function (error) {
+		callback.error({
+			status: "-0001",
+			message: error.toString()
+		});
+	};
+	xhr.onreadystatechange = function () {
+		if (xhr.readyState == 4) {
+			try {
+				var s = xhr.status;
+				if (s >= 200 && s < 300) {
+					var data = xhr.response;
+					var buff = [];
+					for (var i = 0, j = data.length; i < j; i++) {
+						buff.push(data[i].charCodeAt(0));
+					};
+					var len = readInt(buff);
+					var seq = readInt(buff);
+					var operatecode = readInt(buff);
+					var packet = new Packet(operatecode, seq);
+					packet.input(buff);
+					try {
+						packet.decode();
+					} catch (error) {
+						callback.error({
+							status: "-0001",
+							message: '数据异常'
+						});
+					}
+
+					var info = packet.getValue();
+					if (info.status.status == '0000' || info.status[0].status == '0000') {
+						callback.success(info);
+					} else {
+						callback.error(info);
+					}
+				} else {
+					callback.error({
+						status: "-0001",
+						message: '数据异常'
+					});
+				}
+			} catch (e) {
+				callback.error({
+					status: "-0001",
+					message: '数据异常'
+				});
+			}
+		} else {
 			callback.error({
 				status: "-0001",
 				message: '数据异常'
 			});
 		}
-
-		var info = packet.getValue();
-		if (info.status.status == '0000' || info.status[0].status == '0000') {
-			callback.success(info);
-		} else {
-			callback.error(info);
-		}
 	};
-
-	xhr.onerror = function (error) {
+	xhr.ontimeout = function () {
 		callback.error({
-			status: "-0001",
-			message: error.toString()
+			status: "-0002",
+			message: '请求超时'
 		});
 	};
 	xhr.withCredentials = true;
