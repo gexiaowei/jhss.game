@@ -96,12 +96,12 @@ canvas#game {
 }
 .softname {
 	margin: 5px;
-	font-size: 30pt;
+	font-size: 2.5em;
 	color: #454545;
 }
 .des {
 	margin: 5px;
-	font-size: 20pt;
+	font-size: 2em;
 	color: #7F7F7F;
 }
 .download .free_download {
@@ -113,7 +113,7 @@ canvas#game {
 .dowloaddes {
 	color: white;
 	padding: 15px, 15px, 15px, 15px;
-	font-size: 30pt
+	font-size: 3em
 }
 .gameend {
 	background-color: #f3c659;
@@ -127,21 +127,20 @@ canvas#game {
 	background-color: rgba(0, 0, 0, 0.5);
 }
 .sharebar div {
+	padding-top: 10px;
+	padding-bottom: 10px;
 	vertical-align: middle;
 	display: table-cell;
 }
 .shareto {
 	padding-left: 30px;
-	font-size: 2em;
+	font-size: 2.5em;
 	color: white;
 	text-align: left;
 }
 .shareimage {
 	width: 89px;
 	padding-right: 54px;
-}
-.gameresult {
-	text-align: center
 }
 span.normal {
 	color: #9F7C2C;
@@ -150,17 +149,20 @@ span.normal {
 span#stockname {
 	color: #836726;
 	font-size: 3.5em;
+	font-weight: bold;
 }
 span#profittotal {
 	color: #FF2633;
-	font-size: 3.7em;
+	font-size: 5em;
 }
 span#profitunit {
 	color: #FF2633;
-	font-size: 3pt;
+	font-size: 3em;
 }
 .gamereslut {
-	padding-top: 20px;
+	padding-top: 10%;
+	text-align: center;
+	vertical-align: middle;
 }
 .gamereslut div {
 	padding-top: 15px;

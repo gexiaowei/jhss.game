@@ -22,6 +22,7 @@ $(document).ready(function () {
 		}
 		$('#current_profit').css('color', color);
 		$('#current_profit').text(profit.toFixed(2));
+		$('#total_profit').text((totolmoney + holdnum * price).toFixed(2));
 	});
 
 	$('#operate').click(function (e) {
@@ -59,9 +60,6 @@ $(document).ready(function () {
 		default:
 			break;
 		}
-
-		$('#total_profit').text(totolmoney.toFixed(2));
-
 	});
 
 	$('#download').click(function () {
