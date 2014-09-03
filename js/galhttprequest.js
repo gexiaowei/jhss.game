@@ -505,18 +505,22 @@ Packet.prototype.getCompressInt = function () {
 };
 
 Packet.prototype.getCompressLong = function () {
-	var val = 0;
+	var val_low = 0;
+	var val_high = 0;
 	var b;
 	var ind = 0;
 	do {
 		b = this.buff.shift();
 		if (ind == 0 && (b & 0x40) != 0) {
-			val = -1;
+			val_low = 0xffffffff;
+			val_high = 0xffffffff;
 		}
 		ind++;
-		val = (val << 7) | (b & 0x7f);
-	} while ((b & 0x80) == 0);
-	return val;
+		val_high = (val_high << 7) | (val_low >>> (32 - 7));
+		val_low = (val_low << 7) | (b & 0x7f);
+	}
+	while ((b & 0x80) == 0);
+	return val_high * Math.pow(1 << 16, 2) + (val_low < 0 ? Math.pow(1 << 16, 2) : 0) + val_low;
 };
 
 Packet.prototype.getFloat = function () {
