@@ -50,9 +50,10 @@ $(document).ready(function () {
 			}
 			break;
 		case 3:
-			$('#gameprofit').removeAttr("style");
-			$('#gamecontainer').removeAttr("style");
-			$('#gamend').css('display', 'none');
+			$('.fund').show();
+			$('.chart').show();
+			$('.sharebar').hide();
+			$('.gamereslut').hide();
 			$('#operate').text('开始游戏');
 			game.reset();
 			status = 0;
@@ -63,18 +64,19 @@ $(document).ready(function () {
 	});
 
 	$('#download_mncg').click(function () {
-		location.href = 'http://www.youguu.com/download/mncg_code.html';
+		window.open('http://www.youguu.com/download/mncg_code.html');
 	});
 	$('#download_yglc').click(function () {
-		location.href = 'http://www.youguu.com/download/yglc_code.html';
+		window.open('http://www.youguu.com/download/yglc_code.html');
 	});
 });
 
 
 function setreslut(reslut) {
-	$('#gameprofit').css('display', 'none');
-	$('#gamecontainer').css('display', 'none');
-	$('#gamend').removeAttr("style");
+	$('.fund').hide();
+	$('.chart').hide();
+	$('.sharebar').show();
+	$('.gamereslut').show();
 
 	$('#date').text(getdate(reslut[0]) + '至' + getdate(reslut[1]));
 	$('#stockname').text(reslut[2]);
@@ -112,23 +114,23 @@ function getAppraisal(profit) {
 	} else if (5 <= profitpercent && profitpercent < 15) {
 		appraisal = '看大门的老孙都比你牛，╮(╯▽╰)╭';
 	} else if (15 <= profitpercent && profitpercent < 35) {
-		appraisal = '细水长流， 也不错啦';
+		appraisal = '细水长流，也不错啦';
 	} else if (35 <= profitpercent && profitpercent < 50) {
-		appraisal = '收益不错， 去换辆跑车吧！';
+		appraisal = '收益不错，去换辆跑车吧！';
 	} else if (50 <= profitpercent && profitpercent < 80) {
-		appraisal = '英雄！ 小伙伴儿们都惊呆了！';
+		appraisal = '英雄！小伙伴儿们都惊呆了！';
 	} else if (80 <= profitpercent) {
-		appraisal = '传说中的股神！ 去优顾模拟炒股里拯救世界吧！';
+		appraisal = '传说中的股神！去优顾模拟炒股里拯救世界吧！';
 	} else if (-5 <= profitpercent && profitpercent < 0) {
-		appraisal = '留的青山在， 不怕没柴烧， 再战！';
+		appraisal = '留的青山在，不怕没柴烧，再战！';
 	} else if (-15 <= profitpercent && profitpercent < -5) {
-		appraisal = '麻麻， 股市好可怕';
+		appraisal = '麻麻，股市好可怕';
 	} else if (-35 <= profitpercent && profitpercent < -15) {
-		appraisal = '惨”， 求小伙伴们请吃饭';
+		appraisal = '惨”，求小伙伴们请吃饭';
 	} else if (-50 <= profitpercent && profitpercent < -35) {
-		appraisal = '谁借我一件衣服， 我觉得好冷啊';
+		appraisal = '谁借我一件衣服，我觉得好冷啊';
 	} else {
-		appraisal = '也是传奇！ 精确反向指标！';
+		appraisal = '也是传奇！精确反向指标！';
 	}
 	return appraisal;
 }

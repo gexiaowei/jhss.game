@@ -1,66 +1,88 @@
+html,
 body {
-	width: 100%;
 	height: 100%;
-	margin: 0 0 0 0;
-}
-.profit {
-	padding-top: 20px;
-	padding-bottom: 20px;
 	width: 100%;
-	display: table;
-	background-color: #F3C659;
+	margin: 0;
 }
-.profit .profit_simple {
-	width: 40%;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	display: table-cell;
+div.sharebar {
+	height: 5%;
+	width: 100%;
+	background-color: #F3C659;
+	line-height: 1.5em;
+	font-size: 1.3em;
+	color: #fff;
+	box-sizing: border-box;
+}
+div.sharebar div {
+	padding: 0 2%;
+	height: 100%;
+	width: 100%;
+	position: relative;
+	background-color: rgba(0, 0, 0, 0.5);
+	box-sizing: border-box;
+}
+div.sharebar img {
+	height: 100%;
+	position: absolute;
+	right: 2%;
+}
+div.gamereslut {
+	padding: 5% 1%;
+	height: 55.369068541301%;
+	width: 100%;
+	background-color: #F3C659;
+	box-sizing: border-box;
+	text-align: center;
+}
+div.gamereslut div {
+	margin-top: 2%;
+}
+div.fund {
+	width: 100%;
+	height: 14.674868189807%;
+	padding: 0.96660808435852% 2.9166666666667%;
+	background-color: #F3C659;
+	box-sizing: border-box;
+}
+div.fund div {
+	width: 48.672566371681%;
+	height: 100%;
+	float: left;
 	background-color: #F8DF9E;
 }
-.profit .profit_simple .profit_des {
+div.fund div:nth-child(2) {
+	margin-left: 2.6548672566372%;
+}
+div.fund div span {
+	display: block;
 	text-align: center;
 	color: #A1833F;
-	font-size: 2.3em;
+	font-size: 1.3em;
 }
-.profit .profit_simple .profit_money {
-	text-align: center;
+div.fund div span:first-child {
+	margin-top: 1em;
+}
+div.fund div span:nth-child(2) {
 	color: #745719;
-	font-size: 3.7em;
+	margin-top: 0.2em;
+	font-size: 1.5em;
 }
-.gameare {
-	position: absolute;
-	top: 0;
-	bottom: 40%;
-	width: 100%;
-	background-color: #f3c659;
-}
-div.gamecontainer {
-	margin-top: 10%;
-	width: 100%;
-	height: 60%;
+div.chart {
+	height: 45.694200351494%;
+	padding: 4.3936731107206% 2.9166666666667% 2.9166666666667% 2.9166666666667%;
+	background-color: #F3C659;
+	box-sizing: border-box;
 }
 canvas#game {
-	width: 100%;
 	height: 100%;
+	width: 100%;
 }
-.operate {
-	border: 0px;
-	background: #f95258;
-	width: 40%;
-	height: 88px;
-	-webkit-border-radius: 0px;
-	-moz-border-radius: 0px;
-	text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
-	color: white;
-	font-size: 3em;
-	text-decoration: none;
-	vertical-align: middle;
-	position: absolute;
-	top: 50%;
-	margin-top: -44px;
-	left: 30%;
+div.operator {
+	height: 30%;
+	width: 100%;
+	position: relative;
 }
-.gameoperate:before {
+div.operator:before {
 	display: block;
 	content: "";
 	height: 25px;
@@ -68,107 +90,64 @@ canvas#game {
 	background-size: 50px 25px;
 	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAyCAMAAACd646MAAAASFBMVEUAAAD////////////////////////////////////////////////////////////////////////////////////////////neHiwAAAAF3RSTlMAPtOQ3MVySumtnWwqWPbuvqeGMSENBSpN188AAAEoSURBVFjDtdVZjsMwDANQWd4TN1vb8P43HSBfRZNpNvNdgDBoSXJUicFm71IHdMn5bEMsUpNpG8UGbVojNcxx8vjBT3GWe0oYsGsIRa4z1uEQZ83ViKbHYX1zJeZpE05J9innvIPiNA1vOcGMuGQ0cliruEhbOeZlcYN9yQEm45ZsZFf0uMlH2fFQ3KaPnQyHCtxjL4OdEhWV6L+9GI9qvJFNr4yK8va8WFRlZUOLylpZMYrKdFXLe0R14/fmDyAIX3dQQaDP7Z9F/GEmgSJ9dt+ApPl4SA+S3hAbWbdSHGhcoc3IelbmAUTDvIREUMUlZALVtIR4UPllSEBmlmNF1nJWynq1KMhUpICuSARdlAC6IBZ0VjLosnjQeXGgc5JAl6QDXScA3x/ltV38LviHrgAAAABJRU5ErkJggg==);
 }
-.gameoperate {
+button#operate {
+	width: 50%;
+	height: 30%;
 	position: absolute;
-	bottom: 135px;
-	width: 100%;
-	top: 60%;
+	top: 40%;
+	left: 25%;
+	background-color: #FD5359;
+	color: #FFFFFF;
+	font-size: 1.5em;
+	text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
+	border: 0;
 }
-.download {
-	background-color: white;
+div.download {
+	height: 9.3145869947276%;
 	width: 100%;
-	height: 135px;
-	position: absolute;
-	bottom: 0px;
-	display: table;
-	padding-bottom: 10px;
+	padding: 0 2.0833333333333%;
+	box-sizing: border-box;
 }
-.download div {
-	background-color: #2F3535;
+div.download>div {
+	width: 49%;
 	height: 100%;
-	border-radius: 10px;
-	vertical-align: middle;
-	display: table-cell;
+	float: left;
+	background-color: #2E3535;
+	border-radius: 9px;
+	color: #E1E1E1;
+	padding: 1.2302284710018% 1.9444444444444%;
+	box-sizing: border-box;
 }
-.download .download_simple {
-	width: 47%;
+div.download>div:nth-child(2) {
+	margin-left: 2%;
 }
-.download .empty {
-	width: 2%;
-	background: transparent;
-}
-.download .icon {
-	width: 99px;
-	padding: 17px;
-}
-.download .about {
-	text-align: left;
-}
-.softname {
-	margin: 5px;
-	font-size: 2.5em;
-	color: #CCCCCC;
-}
-.des {
-	margin: 5px;
-	font-size: 2em;
-	color: #C2C2C2;
-}
-.dowloaddes {
-	color: white;
-	padding: 15px, 15px, 15px, 15px;
-	font-size: 3em
-}
-.gameend {
-	background-color: #f3c659;
+div.download>div div {
+	height: 100%;
 	text-align: center;
+	float: left;
+}
+div.icon img {
 	height: 100%;
-	width: 100%;
 }
-.sharebar {
-	display: table;
-	width: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
-}
-.sharebar div {
-	padding-top: 10px;
-	padding-bottom: 10px;
-	vertical-align: middle;
-	display: table-cell;
-}
-.shareto {
-	padding-left: 30px;
-	font-size: 2.5em;
-	color: white;
+div.about span {
+	display: block;
+	margin-left: 10px;
 	text-align: left;
 }
-.shareimage {
-	width: 89px;
-	padding-right: 54px;
+div.about span:first-child {
+	margin-top: 0.8em;
+}
+div.about span:nth-child(2) {
+	font-size: 0.8em;
 }
 span.normal {
 	color: #9F7C2C;
-	font-size: 3em;
+	font-size: 1.3em;
 }
 span#stockname {
-	color: #836726;
-	font-size: 3.5em;
-	font-weight: bold;
+	color: #fff;
+	font-size: 1.5em;
 }
 span#profittotal {
-	color: #FF2633;
-	font-size: 5em;
-}
-span#profitunit {
-	color: #FF2633;
-	font-size: 3em;
-}
-.gamereslut {
-	padding-top: 10%;
-	text-align: center;
-	vertical-align: middle;
-}
-.gamereslut div {
-	padding-top: 15px;
-	padding-bottom: 15px;
+	font-size: 1.7em;
 }

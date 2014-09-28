@@ -3,9 +3,11 @@
 
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 	<title>游戏主界面</title>
-	<link rel="stylesheet" type="text/css" href="../css/main.css">
+	<link rel="stylesheet" href="../css/main.css">
 	<script src="../js/jquery-1.7.2.js"></script>
+	<script src="../js/format.js"></script>
 	<script src="../js/gamecanvaschart.js"></script>
 	<script src="../js/galhttprequest.js"></script>
 	<script src="../js/gamemain.js"></script>
@@ -13,70 +15,56 @@
 </head>
 
 <body>
-	<div class="gameare">
-		<div id="gamend" class="gameend" style="display:none">
-			<div class="sharebar">
-				<div class="shareto">@优顾模拟炒股</div>
-				<div class="shareimage">
-					<img src="../images/arrow_share.png" alt="分享">
-				</div>
-			</div>
-			<div class="gamereslut">
-				<div><span id="date" class="normal">{date_start} 至 {date_end}</span>
-				</div>
-				<div><span class="normal">操作</span><span id="stockname">{stock_name}</span><span class="normal">获利： </span>
-				</div>
-				<div><span id="profittotal">4000000</span><span id="profitunit">元</span>
-				</div>
-				<div><span id="appraisal" class="normal">{appraisal}</span>
-				</div>
-			</div>
-		</div>
-		<div id="gameprofit" class="profit">
-			<div class="empty"></div>
-			<div class="profit_simple">
-				<div class="profit_des">总资产(￥)</div>
-				<div class="profit_money" id="total_profit">100000</div>
-			</div>
-			<div class="empty"></div>
-			<div class="profit_simple">
-				<div class="profit_des">当前交易获利</div>
-				<div class="profit_money" id="current_profit">0</div>
-			</div>
-			<div class="empty"></div>
-		</div>
-		<div id="gamecontainer" class="gamecontainer">
-			<canvas id="game"></canvas>
+	<div class="sharebar" style="display:none">
+		<div><span>@优顾模拟炒股</span>
+			<img src="../images/arrow_share.png" alt="分享">
 		</div>
 	</div>
-	<div class="gameoperate">
-		<button id="operate" class="operate">开始游戏</button>
+	<div class="gamereslut" style="display:none">
+		<div><span id="date" class="normal">{date_start} 至 {date_end}</span>
+		</div>
+		<div><span class="normal">操作</span><span id="stockname">{stock_name}</span><span class="normal">获利： </span>
+		</div>
+		<div><span id="profittotal">{profittotal}</span><span id="profitunit">元</span>
+		</div>
+		<div><span id="appraisal" class="normal">{appraisal}</span>
+		</div>
+	</div>
+	<div class="fund">
+		<div>
+			<span>总资产(￥)</span>
+			<span id="total_profit">100000</span>
+		</div>
+		<div>
+			<span>当前交易获利</span>
+			<span id="current_profit">0</span>
+		</div>
+	</div>
+	<div class="chart">
+		<canvas id="game"></canvas>
+	</div>
+	<div class="operator">
+		<button id="operate">开始游戏</button>
 	</div>
 	<div class="download">
-		<div class="empty"></div>
-		<div class="download_simple" id="download_mncg">
+		<div id="download_mncg">
 			<div class="icon">
 				<img src="../images/icon_mncg.png" alt="优顾模拟炒股">
 			</div>
 			<div class="about">
-				<span class="softname">优顾模拟炒股</span>
-				<br />
-				<span class="des">免费下载</span>
+				<span>优顾模拟炒股</span>
+				<span>免费下载</span>
 			</div>
 		</div>
-		<div class="empty"></div>
-
-		<div class="download_simple" id="download_yglc">
+		<div id="download_yglc">
 			<div class="icon">
 				<img src="../images/icon_yglc.png" alt="优顾理财">
 			</div>
 			<div class="about">
-				<span class="softname">优顾理财</span>
-				<br />
-				<span class="des">免费下载</span>
+				<span>优顾理财</span>
+				<span>免费下载</span>
 			</div>
 		</div>
-		<div class="empty"></div>
 	</div>
 </body>
 

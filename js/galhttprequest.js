@@ -43,7 +43,7 @@ GalHttpRequest.prototype.requestFromNet = function (callback) {
 
 	xhr.onerror = function (error) {
 		callback.error({
-			status: "-0001",
+			status: "-0010",
 			message: error.toString()
 		});
 	};
@@ -60,7 +60,7 @@ GalHttpRequest.prototype.requestPacketFromNet = function (callback) {
 	if (!xhr) {
 		console.error('请求发生错误');
 		callback.error({
-			status: "-0001",
+			status: "-0003",
 			message: "浏览器不支持跨域请求"
 		});
 		return;
@@ -71,7 +71,7 @@ GalHttpRequest.prototype.requestPacketFromNet = function (callback) {
 
 	xhr.onerror = function (error) {
 		callback.error({
-			status: "-0001",
+			status: "-0004",
 			message: error.toString()
 		});
 	};
@@ -94,7 +94,7 @@ GalHttpRequest.prototype.requestPacketFromNet = function (callback) {
 						packet.decode();
 					} catch (error) {
 						callback.error({
-							status: "-0001",
+							status: "-0005",
 							message: '数据异常'
 						});
 					}
@@ -107,22 +107,12 @@ GalHttpRequest.prototype.requestPacketFromNet = function (callback) {
 					}
 				} else {
 					callback.error({
-						status: "-0001",
+						status: "-0006",
 						message: '数据异常'
 					});
 				}
-			} catch (e) {
-				callback.error({
-					status: "-0001",
-					message: '数据异常'
-				});
-			}
-		} else {
-			callback.error({
-				status: "-0001",
-				message: '数据异常'
-			});
-		}
+			} catch (e) {}
+		} else {}
 	};
 	xhr.ontimeout = function () {
 		callback.error({

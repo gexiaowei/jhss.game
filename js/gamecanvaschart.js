@@ -47,10 +47,22 @@ GameChart.prototype.clear = function () {
 	this.context.closePath();
 	this.context.fillStyle = '#F3C659';
 	this.context.fill();
+	for (var i = 0; i < 2; i++) {
+		this.context.beginPath();
+		this.context.moveTo(0, this.height * (i + 1) / 3);
+		this.context.lineTo(this.width, this.height * (i + 1) / 3);
+		this.context.strokeStyle = '#fff';
+		this.context.stroke();
+	}
 	this.context.beginPath();
 	this.context.moveTo(0, this.height);
 	this.context.lineTo(this.width, this.height);
-	this.context.strokeStyle = '#000';
+	this.context.strokeStyle = '#222222';
+	this.context.stroke();
+	this.context.beginPath();
+	this.context.moveTo(0, this.height + this.height_assist / 2);
+	this.context.lineTo(this.width, this.height + this.height_assist / 2);
+	this.context.strokeStyle = '#fff';
 	this.context.stroke();
 }
 
@@ -66,17 +78,19 @@ GameChart.prototype.init = function () {
 			code: stockcode,
 			xrdrtype: '1',
 			pageindex: '1',
-			pagesize: size
+			pagesize: '120'
 		}),
 		self = this;
 	gal.requestPacketFromNet({
 		success: function (data) {
+			console.log(data);
 			self.load(data);
 		},
 		error: function (error) {
 			self.throwerror(error);
 		}
 	});
+	console.log(this.MAX_COUNT, size);
 	this.stockname = stockname;
 };
 
@@ -212,6 +226,27 @@ GameChart.prototype.showchart = function () {
 			this.addMark(this.array_mark[i], i);
 		}
 	}
+	this.context.textAlign = 'left';
+	this.context.fillStyle = '#fff';
+	for (var i = 0; i < 4; i++) {
+		if (i === 0) {
+			this.context.textBaseline = 'top';
+		} else if (i === 3) {
+			this.context.textBaseline = 'bottom';
+		} else {
+			this.context.textBaseline = 'middle';
+		}
+		this.context.fillText((this.low + (this.high - this.low) * (3 - i) / 3).toFixed(2), 0, this.height * i / 3);
+	}
+	for (var i = 0; i < 2; i++) {
+		if (i === 0) {
+			this.context.textBaseline = 'top';
+		} else {
+			this.context.textBaseline = 'middle';
+		}
+		this.context.fillText(new formatBigNum(this.high_assist / (i + 1)).toString() + '手', 0, this.height + this.height_assist * i / 2);
+	}
+
 };
 
 /**
@@ -243,6 +278,7 @@ GameChart.prototype.add = function (index) {
 	this.height_per_assist = this.height_assist / this.high_assist;
 
 	var data = this.klinedatas[index + this.offset],
+		color,
 		x = (3 * index + 1) * this.width_per,
 		y_high = (this.high - data.high) * this.height_per,
 		y_low = (this.high - data.low) * this.height_per,
@@ -361,7 +397,7 @@ GameChart.prototype.addMark = function (flag, index) {
 	var a1 = 1.8,
 		a2 = 5 / 9,
 		a3 = 7 / 9,
-		r = 20;
+		r = 15;
 	var value = null,
 		color = '',
 		text_flag = '';
