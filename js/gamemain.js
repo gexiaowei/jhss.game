@@ -63,6 +63,7 @@ $(document).ready(function () {
 			$('.sharebar').hide();
 			$('.gamereslut').hide();
 			$('#operate').text('开始游戏');
+			resetDatas();
 			game.reset();
 			status = 0;
 			break;
@@ -79,6 +80,11 @@ $(document).ready(function () {
 	});
 });
 
+
+function resetDatas() {
+	$('#total_profit').text('100000');
+	$('#current_profit').text('0');
+}
 
 function setreslut(reslut) {
 	$('.fund').hide();

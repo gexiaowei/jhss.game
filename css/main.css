@@ -85,9 +85,9 @@ div.operator {
 div.operator:before {
 	display: block;
 	content: "";
-	height: 25px;
+	height: 15px;
 	background-color: #f3c659;
-	background-size: 50px 25px;
+	background-size: 30px 15px;
 	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAyCAMAAACd646MAAAASFBMVEUAAAD////////////////////////////////////////////////////////////////////////////////////////////neHiwAAAAF3RSTlMAPtOQ3MVySumtnWwqWPbuvqeGMSENBSpN188AAAEoSURBVFjDtdVZjsMwDANQWd4TN1vb8P43HSBfRZNpNvNdgDBoSXJUicFm71IHdMn5bEMsUpNpG8UGbVojNcxx8vjBT3GWe0oYsGsIRa4z1uEQZ83ViKbHYX1zJeZpE05J9innvIPiNA1vOcGMuGQ0cliruEhbOeZlcYN9yQEm45ZsZFf0uMlH2fFQ3KaPnQyHCtxjL4OdEhWV6L+9GI9qvJFNr4yK8va8WFRlZUOLylpZMYrKdFXLe0R14/fmDyAIX3dQQaDP7Z9F/GEmgSJ9dt+ApPl4SA+S3hAbWbdSHGhcoc3IelbmAUTDvIREUMUlZALVtIR4UPllSEBmlmNF1nJWynq1KMhUpICuSARdlAC6IBZ0VjLosnjQeXGgc5JAl6QDXScA3x/ltV38LviHrgAAAABJRU5ErkJggg==);
 }
 button#operate {
@@ -136,6 +136,7 @@ div.about span {
 }
 div.about span:first-child {
 	margin-top: 0.8em;
+	font-size: 1em;
 }
 div.about span:nth-child(2) {
 	font-size: 0.8em;
@@ -150,4 +151,30 @@ span#stockname {
 }
 span#profittotal {
 	font-size: 1.7em;
+}
+@media screen and (max-width: 640px) {
+	div.sharebar {
+		line-height: 1.2em;
+		font-size: 0.9em;
+	}
+	div.fund div span {
+		font-size: 0.9em;
+	}
+	div.fund div span:first-child {
+		margin-top: 0;
+	}
+	div.fund div span:nth-child(2) {
+		margin-top: 0.1em;
+		font-size: 1.3em;
+	}
+	button#operate {
+		font-size: 1.3em;
+	}
+	div.about span:first-child {
+		margin-top: 0;
+		font-size: 0.8em;
+	}
+	div.about span:nth-child(2) {
+		font-size: 0.6em;
+	}
 }

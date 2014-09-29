@@ -228,26 +228,14 @@ GameChart.prototype.showchart = function () {
 	}
 	this.context.textAlign = 'left';
 	this.context.fillStyle = '#fff';
-	for (var i = 0; i < 4; i++) {
-		if (i === 0) {
-			this.context.textBaseline = 'top';
-		} else if (i === 3) {
-			this.context.textBaseline = 'bottom';
-		} else {
-			this.context.textBaseline = 'middle';
-		}
+	for (var i = 1; i < 4; i++) {
+		this.context.textBaseline = 'bottom';
 		this.context.fillText((this.low + (this.high - this.low) * (3 - i) / 3).toFixed(2), 0, this.height * i / 3);
 	}
-	for (var i = 0; i < 2; i++) {
-		if (i === 0) {
-			this.context.textBaseline = 'top';
-		} else {
-			this.context.textBaseline = 'middle';
-		}
-		this.context.fillText(new formatBigNum(this.high_assist / (i + 1)).toString() + '手', 0, this.height + this.height_assist * i / 2);
-	}
 
-};
+	this.context.textBaseline = 'bottom';
+	this.context.fillText(new formatBigNum(this.high_assist / 2).toString() + '手', 0, this.height + this.height_assist / 2);
+}
 
 /**
  *@description show next point
@@ -397,7 +385,7 @@ GameChart.prototype.addMark = function (flag, index) {
 	var a1 = 1.8,
 		a2 = 5 / 9,
 		a3 = 7 / 9,
-		r = 15;
+		r = 0.02 *this.width;
 	var value = null,
 		color = '',
 		text_flag = '';
@@ -454,10 +442,11 @@ GameChart.prototype.addMark = function (flag, index) {
 	this.context.fillStyle = color;
 	this.context.fill();
 
-	this.context.font = "12pt Calibri";
+
 	this.context.fillStyle = '#fff';
 	this.context.textAlign = 'center';
 	this.context.textBaseline = "middle";
+	//		this.context.font = "11pt Calibri";
 	this.context.fillText(text_flag, x1, y1 - flag * a1 * r);
 
 };
