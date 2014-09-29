@@ -9,7 +9,7 @@ $(document).ready(function () {
 		clickable = false;
 		var reslut = [startdate, enddate, stockname, (totolmoney + holdnum * price) - 100000];
 		setreslut(reslut);
-		$('#operate').css('background-color', '#3aa400');
+		$('#operate').css('background-color', '#FD5359');
 		$('#operate').text('再来一次');
 		status = 3;
 		totolmoney = 100000;
