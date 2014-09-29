@@ -29,7 +29,7 @@ GameChart.prototype.ALL_STOCK_NAMES = ['歌华有线', '浙江富润', '上汽�
  *@description the max point count of whole screen
  *@const
  */
-GameChart.prototype.MAX_COUNT = 60;
+GameChart.prototype.MAX_COUNT = 40;
 
 /**
  *@description clear the svg and reinit all data
@@ -52,18 +52,17 @@ GameChart.prototype.clear = function () {
 		var scale_h = Math.floor(this.height * (i + 1) / 3) + 0.5;
 		this.context.moveTo(0, scale_h);
 		this.context.lineTo(this.width, scale_h);
-		this.context.strokeStyle = '#f2f2f2';
+		this.context.strokeStyle = 'rgba(255,255,255,0.6)';
 		this.context.stroke();
 	}
-	this.context.beginPath();
-	this.context.moveTo(0, Math.floor(this.height) + 0.5);
-	this.context.lineTo(this.width, Math.floor(this.height) + 0.5);
-	this.context.strokeStyle = '#222222';
-	this.context.stroke();
+
+	this.context.strokeRect(0, 0, this.width, this.height - 5);
+	this.context.strokeRect(0, this.height + 5, this.width, this.height_assist);
+
 	this.context.beginPath();
 	this.context.moveTo(0, Math.floor(this.height + this.height_assist / 2) + 0.5);
 	this.context.lineTo(this.width, Math.floor(this.height + this.height_assist / 2) + 0.5);
-	this.context.strokeStyle = '#f2f2f2';
+	this.context.strokeStyle = 'rgba(255,255,255,0.6)';
 	this.context.stroke();
 }
 

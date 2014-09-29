@@ -43,28 +43,27 @@ div.fund {
 	padding: 0.96660808435852% 2.9166666666667%;
 	background-color: #F3C659;
 	box-sizing: border-box;
+	display: table;
 }
-div.fund div {
+div.fund>div {
 	width: 48.672566371681%;
 	height: 100%;
-	float: left;
 	background-color: #F8DF9E;
+	display: table-cell;
+	vertical-align: middle;
 }
-div.fund div:nth-child(2) {
-	margin-left: 2.6548672566372%;
+div.fund>div:nth-child(2) {
+	width: 2.6548672566372%;
+	background-color: transparent;
 }
-div.fund div span {
+div.fund>div span {
 	display: block;
 	text-align: center;
 	color: #A1833F;
 	font-size: 1.3em;
 }
-div.fund div span:first-child {
-	margin-top: 1em;
-}
-div.fund div span:nth-child(2) {
+div.fund>div span:nth-child(2) {
 	color: #745719;
-	margin-top: 0.2em;
 	font-size: 1.5em;
 }
 div.chart {
@@ -111,31 +110,37 @@ div.download {
 div.download>div {
 	width: 49%;
 	height: 100%;
-	float: left;
 	background-color: #2E3535;
 	border-radius: 9px;
 	color: #E1E1E1;
 	padding: 1.2302284710018% 1.9444444444444%;
 	box-sizing: border-box;
+	float: left
 }
 div.download>div:nth-child(2) {
 	margin-left: 2%;
 }
-div.download>div div {
+div.download>div>div {
 	height: 100%;
 	text-align: center;
 	float: left;
+}
+div.download>div>div:nth-child(2) {
+	margin-left: 10px;
+	display: table;
+}
+div.download>div>div>div {
+	display: table-cell;
+	vertical-align: middle;
 }
 div.icon img {
 	height: 100%;
 }
 div.about span {
 	display: block;
-	margin-left: 10px;
 	text-align: left;
 }
 div.about span:first-child {
-	margin-top: 0.8em;
 	font-size: 1em;
 }
 div.about span:nth-child(2) {
