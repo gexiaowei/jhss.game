@@ -2,15 +2,20 @@ $(document).ready(function () {
 	var status = 0,
 		totolmoney = 100000,
 		buy = 0,
-		holdnum = 0;
+		holdnum = 0,
+		clickable = true;
 	var game = new GameChart('game');
 	game.finish(function (startdate, enddate, stockname, price) {
+		clickable = false;
 		var reslut = [startdate, enddate, stockname, (totolmoney + holdnum * price) - 100000];
 		setreslut(reslut);
 		$('#operate').text('再来一次');
 		status = 3;
 		totolmoney = 100000;
 		holdnum = 0;
+		setTimeout(function () {
+			clickable = true;
+		}, 2000);
 	});
 	game.pricechange(function (price) {
 		var profit = (price - buy) * holdnum;
@@ -26,6 +31,9 @@ $(document).ready(function () {
 	});
 
 	$('#operate').click(function (e) {
+		if (!clickable) {
+			return;
+		}
 		switch (status) {
 		case 0:
 			$('#operate').text('买');
