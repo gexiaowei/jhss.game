@@ -49,20 +49,21 @@ GameChart.prototype.clear = function () {
 	this.context.fill();
 	for (var i = 0; i < 2; i++) {
 		this.context.beginPath();
-		this.context.moveTo(0, this.height * (i + 1) / 3);
-		this.context.lineTo(this.width, this.height * (i + 1) / 3);
-		this.context.strokeStyle = '#fff';
+		var scale_h = Math.floor(this.height * (i + 1) / 3) + 0.5;
+		this.context.moveTo(0, scale_h);
+		this.context.lineTo(this.width, scale_h);
+		this.context.strokeStyle = '#f2f2f2';
 		this.context.stroke();
 	}
 	this.context.beginPath();
-	this.context.moveTo(0, this.height);
-	this.context.lineTo(this.width, this.height);
+	this.context.moveTo(0, Math.floor(this.height) + 0.5);
+	this.context.lineTo(this.width, Math.floor(this.height) + 0.5);
 	this.context.strokeStyle = '#222222';
 	this.context.stroke();
 	this.context.beginPath();
-	this.context.moveTo(0, this.height + this.height_assist / 2);
-	this.context.lineTo(this.width, this.height + this.height_assist / 2);
-	this.context.strokeStyle = '#fff';
+	this.context.moveTo(0, Math.floor(this.height + this.height_assist / 2) + 0.5);
+	this.context.lineTo(this.width, Math.floor(this.height + this.height_assist / 2) + 0.5);
+	this.context.strokeStyle = '#f2f2f2';
 	this.context.stroke();
 }
 
@@ -187,12 +188,12 @@ GameChart.prototype.showchart = function () {
 	for (var i = this.offset; i < this.MAX_COUNT + this.offset; i++) {
 		var temp = this.klinedatas[i];
 		if (i == this.offset) {
-			high = temp.high;
-			low = temp.low;
+			high = getMax([temp.high, temp.avg[0], temp.avg[1], temp.avg[2]]);
+			low = getMin([temp.low, temp.avg[0], temp.avg[1], temp.avg[2]]);
 			high_assist = temp.amount;
 		} else {
-			high = Math.max(high, temp.high);
-			low = Math.min(low, temp.low);
+			high = getMax([high, temp.high, temp.avg[0], temp.avg[1], temp.avg[2]]);
+			low = getMin([low, temp.low, temp.avg[0], temp.avg[1], temp.avg[2]]);
 			high_assist = Math.max(high_assist, temp.amount);
 		}
 	}
@@ -262,17 +263,17 @@ GameChart.prototype.next = function () {
 
 GameChart.prototype.add = function (index) {
 
-	this.height_per = this.height / (this.high - this.low);
-	this.height_per_assist = this.height_assist / this.high_assist;
+	this.height_per = (this.height - 10) / (this.high - this.low);
+	this.height_per_assist = (this.height_assist - 5) / this.high_assist;
 
 	var data = this.klinedatas[index + this.offset],
 		color,
 		x = (3 * index + 1) * this.width_per,
-		y_high = (this.high - data.high) * this.height_per,
-		y_low = (this.high - data.low) * this.height_per,
-		y_open = (this.high - data.open) * this.height_per,
-		y_close = (this.high - data.close) * this.height_per,
-		y_assist = this.height + (this.high_assist - data.amount) * this.height_per_assist;
+		y_high = (this.high - data.high) * this.height_per + 5,
+		y_low = (this.high - data.low) * this.height_per + 5,
+		y_open = (this.high - data.open) * this.height_per + 5,
+		y_close = (this.high - data.close) * this.height_per + 5,
+		y_assist = this.height + (this.high_assist - data.amount) * this.height_per_assist + 5;
 
 	if (data.open > data.close) {
 		color = '#29922C';
@@ -385,7 +386,7 @@ GameChart.prototype.addMark = function (flag, index) {
 	var a1 = 1.8,
 		a2 = 5 / 9,
 		a3 = 7 / 9,
-		r = 0.02 *this.width;
+		r = 0.02 * this.width;
 	var value = null,
 		color = '',
 		text_flag = '';
@@ -450,3 +451,38 @@ GameChart.prototype.addMark = function (flag, index) {
 	this.context.fillText(text_flag, x1, y1 - flag * a1 * r);
 
 };
+
+
+/**
+ * 获取最大值
+ * @param {Array} arr数据集合
+ */
+function getMax(arr) {
+	var i = 0,
+		max = 0;
+	for (; i < arr.length; i++) {
+		if (arr[i]) {
+			max = Math.max(max, arr[i]);
+		}
+	}
+	return max;
+}
+
+/**
+ * 获取最小值
+ * @param {Array} arr数据集合
+ */
+function getMin(arr) {
+	var i = 0,
+		min = 0;
+	for (; i < arr.length; i++) {
+		if (i === 0) {
+			min = arr[0];
+			continue;
+		}
+		if (arr[i]) {
+			min = Math.min(min, arr[i]);
+		}
+	}
+	return min;
+}

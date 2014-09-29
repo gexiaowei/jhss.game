@@ -82,8 +82,8 @@ $(document).ready(function () {
 
 
 function resetDatas() {
-	$('#total_profit').text('100000');
-	$('#current_profit').text('0');
+	$('#total_profit').text('100000.00');
+	$('#current_profit').text('0.00');
 }
 
 function setreslut(reslut) {
@@ -124,7 +124,7 @@ function getAppraisal(profit) {
 	var profitpercent = profit / 1000;
 	var appraisal;
 	if (0 <= profitpercent && profitpercent < 5) {
-		appraisal = '哎呀， 赚的的这么少不如去优顾理财找个高收益理财';
+		appraisal = '哎呀， 赚的这么少不如去优顾理财找个高收益理财';
 	} else if (5 <= profitpercent && profitpercent < 15) {
 		appraisal = '看大门的老孙都比你牛，╮(╯▽╰)╭';
 	} else if (15 <= profitpercent && profitpercent < 35) {
