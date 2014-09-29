@@ -4,7 +4,14 @@ $(document).ready(function () {
 		buy = 0,
 		holdnum = 0,
 		clickable = true;
-	var game = new GameChart('game');
+	var game = new GameChart('game', {
+		onloadstart: function () {
+			$('.load').show();
+		},
+		onloadend: function () {
+			$('.load').hide();
+		}
+	});
 	game.finish(function (startdate, enddate, stockname, price) {
 		clickable = false;
 		var reslut = [startdate, enddate, stockname, (totolmoney + holdnum * price) - 100000];

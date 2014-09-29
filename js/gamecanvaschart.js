@@ -2,7 +2,11 @@
  * @description  Game Chart for html5
  * @param {String} id the Id of svg element
  */
-function GameChart(id) {
+function GameChart(id, opt) {
+	if (opt) {
+		this.loadstartcallback = opt.onloadstart;
+		this.loadendcallback = opt.onloadend;
+	}
 	var canvas = document.getElementById(id);
 	this.context = canvas.getContext('2d');
 	this.width = canvas.offsetWidth;
@@ -81,19 +85,26 @@ GameChart.prototype.init = function () {
 			pagesize: '120'
 		}),
 		self = this;
+	if (this.loadstartcallback) {
+		this.loadstartcallback();
+	}
 	gal.requestPacketFromNet({
 		success: function (data) {
-			console.log(data);
 			self.load(data);
+			if (self.loadendcallback) {
+				self.loadendcallback();
+			}
 		},
 		error: function (error) {
 			self.throwerror(error);
+			if (self.loadendcallback) {
+				self.loadendcallback();
+			}
 		}
 	});
 	console.log(this.MAX_COUNT, size);
 	this.stockname = stockname;
 };
-
 /**
  *@description load the game datas
  *@param {Object} datas the datas from network

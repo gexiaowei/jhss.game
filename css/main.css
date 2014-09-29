@@ -165,6 +165,20 @@ span#stockname {
 span#profittotal {
 	font-size: 1.7em;
 }
+div.load {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 99;
+}
+div.load>div {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -15px 0 0 -120px;
+}
 @media screen and (max-width: 640px) {
 	div.sharebar {
 		line-height: 1.2em;
