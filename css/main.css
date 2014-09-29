@@ -53,6 +53,14 @@ div.fund {
 	box-sizing: border-box;
 	display: table;
 }
+div.fundcopy {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 14.674868189807%;
+	padding: 0.96660808435852% 2.9166666666667%;
+}
 div.fund>div {
 	width: 48.672566371681%;
 	height: 100%;
