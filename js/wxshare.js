@@ -33,6 +33,7 @@ function setShareInfo() {
 				"img_width": "120",
 				"img_height": "120",
 				"link": dataForWeixin.url,
+				"desc": dataForWeixin.desc,
 				"title": dataForWeixin.desc
 			}, function (res) {});
 		});
