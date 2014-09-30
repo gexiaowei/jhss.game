@@ -78,7 +78,7 @@ GameChart.prototype.init = function () {
 		stockcode = this.ALL_STOCK_CODES[index],
 		stockname = this.ALL_STOCK_NAMES[index],
 		size = this.MAX_COUNT + 60,
-		gal = new GalHttpRequest('http://220.181.47.36/quote/kline/day/list?code={code}&xrdrtype={xrdrtype}&pageindex={pageindex}&pagesize={pagesize}', {
+		gal = new GalHttpRequest('http://quote.youguu.com/quote/kline/day/list?code={code}&xrdrtype={xrdrtype}&pageindex={pageindex}&pagesize={pagesize}', {
 			code: stockcode,
 			xrdrtype: '1',
 			pageindex: '1',
