@@ -1,7 +1,7 @@
 var dataForWeixin = {
 	appId: "",
-	MsgImg: "http://www0.youguu.com/game/klinegame/images/icon.png",
-	TLImg: "http://www0.youguu.com/game/klinegame/images/icon.png",
+	MsgImg: "http://www0.youguu.com/game/klinegame/images/icon_mncg.png",
+	TLImg: "http://www0.youguu.com/game/klinegame/images/icon_mncg.png",
 	url: "http://www0.youguu.com/game/klinegame/html/game_kline_index.html",
 	title: "“股”头硬不硬",
 	desc: "想买IPHONE 6？靠卖肾！？简直弱爆了，不如去股市里捞一笔！保了肾，挣了钱，还能迎娶白富美，从此走上人生巅峰！",
@@ -33,8 +33,7 @@ function setShareInfo() {
 				"img_width": "120",
 				"img_height": "120",
 				"link": dataForWeixin.url,
-				"desc": dataForWeixin.desc,
-				"title": dataForWeixin.title
+				"title": dataForWeixin.desc
 			}, function (res) {});
 		});
 		//分享到微博

@@ -115,7 +115,7 @@ function setreslut(reslut) {
 
 	var appraisal = getAppraisal(proift);
 	$('#appraisal').text(appraisal);
-	var desc = '我在优顾模拟炒股内';
+	var desc = '我在股市内';
 	desc += (proift >= 0 ? '赚' : '亏');
 	desc += Math.abs(proift).toFixed(2);
 	desc += '元！';
