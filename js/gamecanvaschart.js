@@ -61,7 +61,7 @@ GameChart.prototype.clear = function () {
 	}
 
 	this.context.strokeRect(0, 0, this.width, this.height - 5);
-	this.context.strokeRect(0, this.height + 5, this.width, this.height_assist);
+	this.context.strokeRect(0, this.height + 5, this.width, this.height_assist - 5);
 
 	this.context.beginPath();
 	this.context.moveTo(0, Math.floor(this.height + this.height_assist / 2) + 0.5);
@@ -290,7 +290,7 @@ GameChart.prototype.add = function (index) {
 	} else if (data.open < data.close) {
 		color = '#FB1728';
 	} else {
-		color = '#ffffff';
+		color = '#FB1728';
 		y_open -= 1;
 		y_close += 1;
 	}

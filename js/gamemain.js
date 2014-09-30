@@ -115,9 +115,8 @@ function setreslut(reslut) {
 
 	var appraisal = getAppraisal(proift);
 	$('#appraisal').text(appraisal);
-	var desc = '我在60天内操作';
-	desc += reslut[2];
-	desc += (proift >= 0 ? '盈利' : '亏损');
+	var desc = '我在优顾模拟炒股内';
+	desc += (proift >= 0 ? '赚' : '亏');
 	desc += Math.abs(proift).toFixed(2);
 	desc += '元！';
 	desc += appraisal;
@@ -134,19 +133,21 @@ function getAppraisal(profit) {
 	var profitpercent = profit / 1000;
 	var appraisal;
 	if (0 <= profitpercent && profitpercent < 5) {
-		appraisal = '哎呀， 赚的这么少不如去优顾理财找个高收益理财';
+		appraisal = '哎呀，赚的这么少！不如去优顾理财找个靠谱的理财方法吧！';
 	} else if (5 <= profitpercent && profitpercent < 15) {
-		appraisal = '看大门的老孙都比你牛，╮(╯▽╰)╭';
+		appraisal = '看大门的老孙都比你牛，再接再厉啦，╮(╯▽╰)╭';
 	} else if (15 <= profitpercent && profitpercent < 35) {
-		appraisal = '细水长流，也不错啦';
+		appraisal = '一“大波”IPHONE 6在向你招手！';
 	} else if (35 <= profitpercent && profitpercent < 50) {
-		appraisal = '收益不错，去换辆跑车吧！';
+		appraisal = '收益不错嘛，去换辆跑车追女神吧！';
 	} else if (50 <= profitpercent && profitpercent < 80) {
 		appraisal = '英雄！小伙伴儿们都惊呆了！';
-	} else if (80 <= profitpercent) {
+	} else if (80 <= profitpercent && profitpercent < 90) {
 		appraisal = '传说中的股神！去优顾模拟炒股里拯救世界吧！';
+	} else if (90 <= profitpercent) {
+		appraisal = '已经超神了！人生巅峰就此开展！';
 	} else if (-5 <= profitpercent && profitpercent < 0) {
-		appraisal = '留的青山在，不怕没柴烧，再战！';
+		appraisal = '留的青山在，不怕没柴烧，改日再战！';
 	} else if (-15 <= profitpercent && profitpercent < -5) {
 		appraisal = '麻麻，股市好可怕';
 	} else if (-35 <= profitpercent && profitpercent < -15) {

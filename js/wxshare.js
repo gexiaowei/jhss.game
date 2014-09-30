@@ -1,10 +1,10 @@
 var dataForWeixin = {
 	appId: "",
-	MsgImg: "http://www.xixistar.com/mobile/images/icon.png",
-	TLImg: "http://www.xixistar.com/mobile/images/icon.png",
-	url: "http://www.xixistar.com/mobile/html/game_kline_index.html",
-	title: "遨游股海，搜寻财富",
-	desc: "快点来试试吧，在60天的时间里赚更多的MONEY",
+	MsgImg: "http://www0.youguu.com/game/klinegame/images/icon.png",
+	TLImg: "http://www0.youguu.com/game/klinegame/images/icon.png",
+	url: "http://www0.youguu.com/game/klinegame/html/game_kline_index.html",
+	title: "“股”头硬不硬",
+	desc: "想买IPHONE 6？靠卖肾！？简直弱爆了，不如去股市里捞一笔！保了肾，挣了钱，还能迎娶白富美，从此走上人生巅峰！",
 	fakeid: "",
 	callback: function () {}
 };
